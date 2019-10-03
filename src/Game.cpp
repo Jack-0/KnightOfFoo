@@ -9,36 +9,13 @@
 Game* Game::s_pInstance = 0; // singleton
 
 
-bool Game::init(const char* title, int x, int y, int width, int height, int flags)
+bool Game::init(const char* title, int width, int height)
 {
     m_screenWidth = width;
     m_screenHeight = height;
 
-    /*
-    m_screenCenter = Vector2D(width / 2, height / 2);
-
-    // initialise SDL
-    if(SDL_INIT_EVERYTHING >= 0)
-    {
-        std::cout << "SDL initialisation successful" << std::endl;
-        window = SDL_CreateWindow(title, x, y, width, height, flags);
-        if(window != 0)
-        {
-            std::cout << "Window initialisation successful" << std::endl;
-            renderer = SDL_CreateRenderer(window, -1, 0);
-            if(renderer != 0)
-            {
-                std::cout << "Renderer initialisation successful" << std::endl;
-                SDL_SetRenderDrawColor(renderer, 100, 100, 100, 0);
-            }
-            else
-                { return false; }
-        } else
-            { return false; }
-    } else
-        { return false; }
-        */
-
+    // create window
+    m_renderer = new sf::RenderWindow(sf::VideoMode(m_screenWidth, m_screenHeight), title);
 
     /*
     TheGameObjectFactory::Instance()->registerType("MenuButton", new ButtonCreator());
@@ -65,18 +42,14 @@ void Game::render()
 {
     //SDL_RenderClear(renderer);
     /// render start
+    m_renderer->clear();
+
     m_pGameStateMachine->render();
+
+    m_renderer->display();
+
     /// render end
     //SDL_RenderPresent(renderer);
-}
-
-void Game::draw()
-{
-    // draw all game objects
-    for(std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++)
-    {
-        //m_gameObjects[i]->draw();
-    }
 }
 
 /**

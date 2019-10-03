@@ -12,6 +12,8 @@
 #include "PauseState.h"
 #include "GameOverState.h"
 
+#include <SFML/Graphics/CircleShape.hpp>
+
 /**
  * This GameState represents the core game.
  * When this state is active;
@@ -37,6 +39,9 @@ private:
 
     // a vector of enemies
     std::vector<GameObject*> m_gameObjects;
+
+
+    sf::CircleShape* shape;
 };
 
 

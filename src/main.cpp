@@ -4,13 +4,14 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(900, 900), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    ///sf::CircleShape shape(100.f);
+    // shape.setFillColor(sf::Color::Green);
+    //sf::RenderWindow window(sf::VideoMode(900, 900), "SFML works!");
 
-    TheGame::Instance()->init("a",1,2,3,4,5);
+    TheGame::Instance()->init("SFML",900,900);
 
-    while (window.isOpen())
+    while (TheGame::Instance()->isRunning())
+    //    while (window.isOpen())
     {
         TheGame::Instance()->handleEvents();
         TheGame::Instance()->update();
@@ -18,6 +19,7 @@ int main()
 
         // TODO delay time
 
+        /*
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -28,6 +30,7 @@ int main()
         window.clear();
         window.draw(shape);
         window.display();
+         */
     }
 
     return 0;

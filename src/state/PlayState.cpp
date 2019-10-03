@@ -3,6 +3,7 @@
 //
 
 #include "PlayState.h"
+#include "../Game.h"
 
 
 const std::string PlayState::s_playID = "PLAY";
@@ -10,6 +11,7 @@ const std::string PlayState::s_playID = "PLAY";
 
 void PlayState::update()
 {
+    shape->move(0.001,0.001);
 }
 
 
@@ -19,12 +21,20 @@ void PlayState::render()
    {
 
    }
+
+
+   shape->setFillColor(sf::Color::Green);
+   TheGame::Instance()->getRenderer()->draw(*shape);
+
  //       m_gameObjects[i]->draw();
 }
 
 
 bool PlayState::onEnter()
 {
+
+    shape = new sf::CircleShape(100.f);
+
     std::cout << "Entering play state\n";
     return true;
 }
