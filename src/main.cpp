@@ -10,22 +10,30 @@ int main()
 
     TheGame::Instance()->init("SFML",900,900);
 
+
+    sf::Event event;
+
     while (TheGame::Instance()->isRunning())
     //    while (window.isOpen())
     {
+        while (TheGame::Instance()->getRenderWindow()->pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                TheGame::Instance()->clean();
+            }
+        }
+
         TheGame::Instance()->handleEvents();
         TheGame::Instance()->update();
         TheGame::Instance()->render();
+
+
 
         // TODO delay time
 
         /*
         sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
 
         window.clear();
         window.draw(shape);

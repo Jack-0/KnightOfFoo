@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window/Event.hpp>
 
 #include "state/GameStateMachine.h"
 #include "state/MainMenuState.h"
@@ -28,7 +29,7 @@ public:
         }
     }
 
-    sf::RenderWindow* getRenderer() { return m_renderer; }
+    sf::RenderWindow* getRenderWindow() { return m_renderWindow; }
 
     bool init(const char* title, int width, int height);
     void render();
@@ -48,8 +49,8 @@ private:
     Game() {}
     static Game* s_pInstance;
 
-    sf::RenderWindow* m_renderer;
-    sf::VideoMode* m_videoMode;
+    sf::RenderWindow* m_renderWindow;
+    //sf::VideoMode* m_videoMode;
 
     int m_screenWidth;
     int m_screenHeight;
@@ -62,6 +63,9 @@ private:
 
     // used to generate random numbers
     std::random_device dev;
+
+
+    sf::Event* event;
 
     int m_fps = 0;
 };

@@ -11,11 +11,12 @@ Game* Game::s_pInstance = 0; // singleton
 
 bool Game::init(const char* title, int width, int height)
 {
+    event = new sf::Event;
     m_screenWidth = width;
     m_screenHeight = height;
 
     // create window
-    m_renderer = new sf::RenderWindow(sf::VideoMode(m_screenWidth, m_screenHeight), title);
+    m_renderWindow = new sf::RenderWindow(sf::VideoMode(m_screenWidth, m_screenHeight), title);
 
     /*
     TheGameObjectFactory::Instance()->registerType("MenuButton", new ButtonCreator());
@@ -42,11 +43,11 @@ void Game::render()
 {
     //SDL_RenderClear(renderer);
     /// render start
-    m_renderer->clear();
+    m_renderWindow->clear();
 
     m_pGameStateMachine->render();
 
-    m_renderer->display();
+    m_renderWindow->display();
 
     /// render end
     //SDL_RenderPresent(renderer);
@@ -72,7 +73,10 @@ void Game::update()
 
 void Game::clean()
 {
+    m_renderWindow->close();
+    quit();
     std::cout << "Cleaning game" << std::endl;
+
     //SDL_DestroyWindow(window);
     //SDL_DestroyRenderer(renderer);
     //SDL_Quit();
@@ -85,6 +89,13 @@ void Game::quit()
 
 void Game::handleEvents()
 {
+    while (TheGame::Instance()->getRenderWindow()->pollEvent(*event))
+        {
+            if (event->type == sf::Event::Closed)
+            {
+                TheGame::Instance()->clean();
+            }
+        }
     /*
     TheInputHandler::Instance()->update();
 
