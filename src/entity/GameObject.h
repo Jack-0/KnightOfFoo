@@ -15,9 +15,9 @@ class GameObject : public Entity
 public:
     GameObject(const LoaderParams *pParams);
 
-    void update();
-    void render();
-    void clean();
+    void update() override;
+    void render() override;
+    void clean()  override;
 
     void setXVelocity(float x) { m_vel.x = x; }
     void setYVelocity(float y) { m_vel.y = y; }
@@ -38,7 +38,7 @@ private:
     // sprite details
     int m_height;
     int m_width;
-    std::string m_sprite_id;
+    //std::string m_sprite_id;
     sf::Sprite m_sprite;
 };
 

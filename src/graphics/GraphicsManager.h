@@ -16,6 +16,9 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
+// Manages textures
+// Manages sprites
+// TODO manage shaders
 
 class GraphicsManager
 {
@@ -34,13 +37,11 @@ public:
     void removeTexture(std::string id);
 
     void addSprite(std::string texture_id, std::string sprite_id, int start_x, int start_y, int width, int height);
-    sf::Sprite* getSprite(std::string id);
+    sf::Sprite getSprite(std::string id);
     void removeSprite(std::string id);
-    void drawSprite(std::string id);
+    void drawSprite(sf::Sprite sprite);
 
     void clean();
-
-    // TODO implement shaders
 
 private:
 

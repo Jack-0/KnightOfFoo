@@ -7,9 +7,9 @@
 
 GraphicsManager* GraphicsManager::s_pInstance = 0;
 
-void GraphicsManager::drawSprite(std::string id)
+void GraphicsManager::drawSprite(sf::Sprite sprite)
 {
-    TheGame::Instance()->getRenderWindow()->draw(m_spriteMap[id]);
+    TheGame::Instance()->getRenderWindow()->draw(sprite);
 }
 
 bool GraphicsManager::addTexture(std::string filename, std::string id)
@@ -32,9 +32,9 @@ void GraphicsManager::addSprite(std::string texture_id, std::string sprite_id, i
     m_spriteMap[sprite_id] = sf::Sprite(m_textureMap[texture_id], sf::IntRect(start_x, start_y, width, height));
 }
 
-sf::Sprite* GraphicsManager::getSprite(std::string id)
+sf::Sprite GraphicsManager::getSprite(std::string id)
 {
-    return &m_spriteMap[id];
+    return m_spriteMap[id];
 }
 
 void GraphicsManager::removeSprite(std::string id)

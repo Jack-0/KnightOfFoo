@@ -9,7 +9,7 @@ GameObject::GameObject(const LoaderParams *pParams)
 {
     m_width = pParams->getWidth();
     m_height = pParams->getHeight();
-    m_sprite_id = pParams->getSpriteID();
+    m_sprite = pParams->getSprite();
 
     m_pos = pParams->getPos();
     m_vel = sf::Vector2f(0,0);
@@ -20,12 +20,12 @@ void GameObject::update()
 {
     m_vel += m_acc;
     m_pos += m_vel;
-    TheGfxManager::Instance()->getSprite(m_sprite_id)->setPosition(m_pos);
+    m_sprite.setPosition(m_pos);
 }
 
 void GameObject::render()
 {
-    TheGfxManager::Instance()->drawSprite(m_sprite_id);
+    TheGfxManager::Instance()->drawSprite(m_sprite);
 }
 
 void GameObject::clean()
