@@ -42,8 +42,6 @@ protected:
     int m_frame; // current frame
     int m_num_frames;
     int m_anim_speed;
-    int m_start_frame;
-    int m_end_frame;
     sf::Clock m_anim_clock; // TODO a clock for each game object? should this be in a singleton?
 
     // state

@@ -10,24 +10,17 @@
 class LoaderParams
 {
 public:
-    LoaderParams(sf::Vector2f pos, int height, int width,
-            std::vector<sf::Sprite>sprites,
-            int currentFrame=0, int numFrames=0,
-            bool animated = false, int startFrame=0, int endFrame=0, float anim_speed = 200)
+    LoaderParams(sf::Vector2f pos, int height, int width, std::vector<sf::Sprite>sprites,
+            bool animated = false, int currentFrame=0, float anim_speed = 200)
     :
     m_pos(pos),
     m_height(height),
     m_width(width),
     m_sprites(sprites),
     m_current_frame(currentFrame),
-    m_num_frames(numFrames),
-    m_start_frame(startFrame),
-    m_end_frame(endFrame),
     m_animated(animated),
     m_anim_speed(anim_speed)
     {
-        if(startFrame > endFrame)
-            m_end_frame = startFrame;
     }
 
     // getters
@@ -40,11 +33,7 @@ public:
 
     bool getAnimated() const { return m_animated; }
     int getAnimationSpeed() const { return m_anim_speed;}
-
     int getCurrentFrame() const { return m_current_frame; }
-    int getNumFrames() const { return m_num_frames; }
-    int getStartFrame() const {return m_start_frame; }
-    int getEndFrame() const {return m_end_frame; }
 
 private:
     // position
@@ -56,11 +45,9 @@ private:
 
     // animation variables
     int m_current_frame;
-    int m_num_frames;
     bool m_animated;
     int m_anim_speed;
-    int m_start_frame;
-    int m_end_frame;
+
     std::vector<sf::Sprite> m_sprites;
 };
 
