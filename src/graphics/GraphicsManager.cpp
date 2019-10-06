@@ -61,6 +61,11 @@ sf::Sprite GraphicsManager::getSprite(std::string id, int index)
         std::cout << "GraphicsManager: getSprite( string= "<< id << ", index= " << index <<") Failed\n";
 }
 
+std::vector<sf::Sprite> GraphicsManager::getSprites(std::string id)
+{
+    return m_spriteMap[id];
+}
+
 void GraphicsManager::removeSprite(std::string id)
 {
     m_spriteMap.erase(id);

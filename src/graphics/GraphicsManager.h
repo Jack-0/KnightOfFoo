@@ -38,6 +38,7 @@ public:
 
     void addSprites(std::string texture_id, std::string sprite_id, int sprite_w, int sprite_h, int sprite_count);
     sf::Sprite getSprite(std::string id, int index);
+    std::vector<sf::Sprite> getSprites(std::string id);
     void removeSprite(std::string id);
     void drawSprite(sf::Sprite sprite);
 
