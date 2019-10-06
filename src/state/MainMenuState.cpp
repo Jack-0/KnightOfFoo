@@ -20,7 +20,7 @@ void MainMenuState::render()
 {
     for(int i = 0; i < m_gameObjects.size(); i++)
     {
-        //m_gameObjects[i]->draw();
+        m_gameObjects[i]->render();
     }
 }
 
@@ -61,7 +61,7 @@ bool MainMenuState::onExit()
 {
     for(int i = 0; i < m_gameObjects.size(); i++)
     {
-        //m_gameObjects[i]->clean();
+        m_gameObjects[i]->clean();
     }
 
     m_gameObjects.clear();
