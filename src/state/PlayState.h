@@ -11,6 +11,7 @@
 #include "GameState.h"
 #include "PauseState.h"
 #include "GameOverState.h"
+#include "../entity/Text.h"
 
 #include <SFML/Graphics/CircleShape.hpp>
 
@@ -37,9 +38,11 @@ private:
 
     static const std::string s_playID;
 
+    Text* text;
     // a vector of enemies
     std::vector<GameObject*> m_gameObjects;
     sf::CircleShape* shape;
+
 
 };
 

@@ -27,17 +27,23 @@ void PlayState::render()
    {
         m_gameObjects[i]->render();
    }
+   text->render();
 }
 
 
 bool PlayState::onEnter()
 {
-    shape = new sf::CircleShape(100.f);
-    shape->setFillColor(sf::Color::Green);
-
     TheGfxManager::Instance()->addTexture("../res/test.png", "ground_tiles");
     TheGfxManager::Instance()->addSprite("ground_tiles", "tile1", 0, 0 , 256, 128);
-    m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(0,0),128,256,"tile1")));
+    TheGfxManager::Instance()->addSprite("ground_tiles", "tile2", 256*3, 0 , 256, 128);
+    sf::Sprite copyiedSprite = TheGfxManager::Instance()->getSprite("tile1");
+    sf::Sprite copyiedSprite2 = TheGfxManager::Instance()->getSprite("tile2");
+
+    text = new Text(sf::Vector2f(0,0), "hello world");
+
+    m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(0,0),128,256, copyiedSprite)));
+    m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(64,0),128,256,copyiedSprite)));
+    m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(64,128),128,256,copyiedSprite2)));
 
     std::cout << "Entering play state\n";
     return true;
