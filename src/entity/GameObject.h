@@ -15,17 +15,16 @@ class GameObject : public Entity
 public:
     GameObject(const LoaderParams *pParams);
 
-    void update() override;
-    void render() override;
-    void clean()  override;
+    virtual void update() override;
+    virtual void render() override;
+    virtual void clean()  override;
 
     void setXVelocity(float x) { m_vel.x = x; }
     void setYVelocity(float y) { m_vel.y = y; }
     void setXAcceleration(float x) { m_acc.x = x; }
     void setYAcceleration(float y) { m_acc.y = y; }
 
-
-private:
+protected:
     // movement
     float m_x;
     float m_y;

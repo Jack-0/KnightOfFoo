@@ -2,7 +2,6 @@
 // Created by jack on 06/10/19.
 //
 
-#include <iostream>
 #include "Text.h"
 #include "../Game.h"
 
@@ -20,7 +19,7 @@ Text::Text(sf::Vector2f position, std::string message, sf::Color colour, int fon
 
 void Text::update()
 {
-
+    m_text.setPosition(m_pos);
 }
 
 void Text::render()

@@ -27,14 +27,38 @@ void GraphicsManager::removeTexture(std::string id)
     m_textureMap.erase(id);
 }
 
-void GraphicsManager::addSprite(std::string texture_id, std::string sprite_id, int start_x, int start_y, int width, int height)
+void GraphicsManager::addSprites(std::string texture_id, std::string sprite_id, int sprite_w, int sprite_h,
+                                 int sprite_count)
 {
-    m_spriteMap[sprite_id] = sf::Sprite(m_textureMap[texture_id], sf::IntRect(start_x, start_y, width, height));
+    std::vector<sf::Sprite> sprites;
+    int row = 0;
+    int column = 0;
+
+    for(int i = 0; i < sprite_count; i++)
+    {
+        sprites.push_back(sf::Sprite(m_textureMap[texture_id],
+                sf::IntRect(column * sprite_w, row * sprite_h, sprite_w, sprite_h)));
+
+        column++;
+
+        if(column * sprite_w >= m_textureMap[texture_id].getSize().x)
+        {
+            column = 0;
+            row++;
+        }
+
+        std::cout << "Texture=" << texture_id <<" pushed back sprite " << i << "(row=" << row << " col=" << column <<") texture.x =" << m_textureMap[texture_id].getSize().x <<"\n";
+    }
+
+    m_spriteMap[sprite_id] = sprites;
 }
 
-sf::Sprite GraphicsManager::getSprite(std::string id)
+sf::Sprite GraphicsManager::getSprite(std::string id, int index)
 {
-    return m_spriteMap[id];
+    if(m_spriteMap[id].size() > index)
+        return m_spriteMap[id][index];
+    else
+        std::cout << "GraphicsManager: getSprite( string= "<< id << ", index= " << index <<") Failed\n";
 }
 
 void GraphicsManager::removeSprite(std::string id)

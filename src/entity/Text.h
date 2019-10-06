@@ -8,6 +8,7 @@
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <iostream>
 #include "Entity.h"
 
 class Text : Entity
@@ -20,6 +21,9 @@ public:
     void clean();
 
     void changeMsg(std::string newMsg) {m_msg = newMsg;}
+
+    int getWidth() { return m_text.getLocalBounds().width; }
+    int getHeight() { return m_text.getLocalBounds().height; }
 
 private:
     sf::Vector2f m_pos;

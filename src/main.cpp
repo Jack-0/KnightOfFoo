@@ -14,7 +14,6 @@ int main()
     sf::Event event;
 
     while (TheGame::Instance()->isRunning())
-    //    while (window.isOpen())
     {
         while (TheGame::Instance()->getRenderWindow()->pollEvent(event))
         {
@@ -27,18 +26,6 @@ int main()
         TheGame::Instance()->handleEvents();
         TheGame::Instance()->update();
         TheGame::Instance()->render();
-
-
-
-        // TODO delay time
-
-        /*
-        sf::Event event;
-
-        window.clear();
-        window.draw(shape);
-        window.display();
-         */
     }
 
     return 0;

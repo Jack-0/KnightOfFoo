@@ -36,8 +36,8 @@ public:
     bool addTexture(std::string filename, std::string id);
     void removeTexture(std::string id);
 
-    void addSprite(std::string texture_id, std::string sprite_id, int start_x, int start_y, int width, int height);
-    sf::Sprite getSprite(std::string id);
+    void addSprites(std::string texture_id, std::string sprite_id, int sprite_w, int sprite_h, int sprite_count);
+    sf::Sprite getSprite(std::string id, int index);
     void removeSprite(std::string id);
     void drawSprite(sf::Sprite sprite);
 
@@ -49,7 +49,7 @@ private:
     ~GraphicsManager();
 
     std::map<std::string, sf::Texture> m_textureMap;
-    std::map<std::string, sf::Sprite> m_spriteMap;
+    std::map<std::string, std::vector<sf::Sprite> > m_spriteMap;
 };
 
 typedef GraphicsManager TheGfxManager;

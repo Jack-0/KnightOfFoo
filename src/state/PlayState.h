@@ -41,7 +41,6 @@ private:
     Text* text;
     // a vector of enemies
     std::vector<GameObject*> m_gameObjects;
-    sf::CircleShape* shape;
 
 
 };
