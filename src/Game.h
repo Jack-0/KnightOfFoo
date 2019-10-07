@@ -44,6 +44,7 @@ public:
     // returns a random number in the range low - high
     int getRandom(int low, int high);
 
+
 private:
 
     Game() {}
@@ -65,7 +66,6 @@ private:
     std::random_device dev;
 
 
-    sf::Event* event;
 
     int m_fps = 0;
 };

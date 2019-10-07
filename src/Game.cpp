@@ -5,13 +5,13 @@
 #include <iostream>
 
 #include "Game.h"
+#include "input/InputHandler.h"
 
 Game* Game::s_pInstance = 0; // singleton
 
 
 bool Game::init(const char* title, int width, int height)
 {
-    event = new sf::Event;
     m_screenWidth = width;
     m_screenHeight = height;
 
@@ -32,7 +32,6 @@ bool Game::init(const char* title, int width, int height)
     m_pGameStateMachine = new GameStateMachine();
     ///m_pGameStateMachine->changeState(new MainMenuState());
     m_pGameStateMachine->changeState(new PlayState());
-
 
     // game is now running
     running = true;
@@ -89,13 +88,9 @@ void Game::quit()
 
 void Game::handleEvents()
 {
-    while (TheGame::Instance()->getRenderWindow()->pollEvent(*event))
-        {
-            if (event->type == sf::Event::Closed)
-            {
-                TheGame::Instance()->clean();
-            }
-        }
+    TheInputHandler::Instance()->update();
+
+
     /*
     TheInputHandler::Instance()->update();
 

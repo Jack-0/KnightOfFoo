@@ -5,7 +5,7 @@
 #include "PlayState.h"
 #include "../Game.h"
 #include "../graphics/GraphicsManager.h"
-
+#include "../input/InputHandler.h"
 
 const std::string PlayState::s_playID = "PLAY";
 
@@ -17,6 +17,14 @@ void PlayState::update()
         m_gameObjects[i]->update();
     }
     text->update();
+
+    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::W))
+        std::cout << "W key pressed\n";
+    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::S))
+        std::cout << "S key pressed\n";
+
+    if(TheInputHandler::Instance()->isMouseKeyDown(sf::Mouse::Left))
+        std::cout << "Mouse x=" << TheInputHandler::Instance()->getMousePos().x << " y=" << TheInputHandler::Instance()->getMousePos().y << "\n";
 }
 
 
@@ -46,7 +54,7 @@ bool PlayState::onEnter()
     m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(0,0),128,256, TheGfxManager::Instance()->getSprites("tiles"), true)));
     m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(500,500),128,256,TheGfxManager::Instance()->getSprites("btns"))));
 
-    m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(500,500),128,256,TheGfxManager::Instance()->getSprites("btns", 0, 3), true)));
+    m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(500,500),128,256,TheGfxManager::Instance()->getSprites("btns", 0, 3), false)));
     m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(500,600),128,256,TheGfxManager::Instance()->getSprites("btns", 3, 6), true)));
     m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(500,700),128,256,TheGfxManager::Instance()->getSprites("btns", 6, 9), true)));
 
