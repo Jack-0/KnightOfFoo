@@ -39,6 +39,8 @@ public:
     bool isRunning() { return running; }
     void quit();
 
+    void zoom(float x);
+
     GameStateMachine* getStateMachine() { return m_pGameStateMachine; }
 
     // returns a random number in the range low - high
@@ -51,6 +53,7 @@ private:
     static Game* s_pInstance;
 
     sf::RenderWindow* m_renderWindow;
+    sf::View m_view;
     //sf::VideoMode* m_videoMode;
 
     int m_screenWidth;

@@ -16,8 +16,9 @@ bool Game::init(const char* title, int width, int height)
     m_screenHeight = height;
 
     // create window
-    m_renderWindow = new sf::RenderWindow(sf::VideoMode(m_screenWidth, m_screenHeight), title);
 
+    m_renderWindow = new sf::RenderWindow(sf::VideoMode(m_screenWidth, m_screenHeight), title);
+    m_view = m_renderWindow->getView();
     /*
     TheGameObjectFactory::Instance()->registerType("MenuButton", new ButtonCreator());
     TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
@@ -89,8 +90,6 @@ void Game::quit()
 void Game::handleEvents()
 {
     TheInputHandler::Instance()->update();
-
-
     /*
     TheInputHandler::Instance()->update();
 
@@ -99,4 +98,9 @@ void Game::handleEvents()
         m_pGameStateMachine->changeState(new PlayState());
     }
      */
+}
+
+void Game::zoom(float x)
+{
+    //m_view.
 }
