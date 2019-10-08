@@ -38,19 +38,20 @@ bool MainMenuState::onEnter()
 
     // set the callbacks from menu items
     setCallbacks(m_callbacks);
-    // add buttons
+
+    // add button texture
     TheGfxManager::Instance()->addTexture("../res/buttons.png", "buttons");
     TheGfxManager::Instance()->addSprites("buttons", "btns", 256, 99, 15);
-
+    // create buttons
     Button* play_btn = new Button(new LoaderParams(sf::Vector2f(0,0),128,256,TheGfxManager::Instance()->getSprites("btns", 0, 3), false),1);
     Button* exit_btn = new Button(new LoaderParams(sf::Vector2f(0,100),128,256,TheGfxManager::Instance()->getSprites("btns", 3, 6), false),2);
-
+    // add button callbacks
     play_btn->setCallBack(m_callbacks[play_btn->getCallbackID()]);
     exit_btn->setCallBack(m_callbacks[exit_btn->getCallbackID()]);
+    // add buttons
     m_gameObjects.push_back(play_btn);
     m_gameObjects.push_back(exit_btn);
 
-    ///TheProjectileHandler::Instance()->clean();
     std::cout << "Entering menu state\n";
     return true;
 }

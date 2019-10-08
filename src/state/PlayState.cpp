@@ -50,18 +50,10 @@ bool PlayState::onEnter()
     TheGfxManager::Instance()->addTexture("../res/buttons.png", "buttons");
     TheGfxManager::Instance()->addSprites("buttons", "btns", 256, 99, 15);
 
-    text = new Text(sf::Vector2f(0,0), "hello world");
 
+    text = new Text(sf::Vector2f(0,0), "Hello SFML World!"); // maybe text should be a GameObject
     m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(0,0),128,256, TheGfxManager::Instance()->getSprites("tiles"), true)));
-    m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(500,500),128,256,TheGfxManager::Instance()->getSprites("btns"))));
-
-    /*
-    m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(500,500),128,256,TheGfxManager::Instance()->getSprites("btns", 0, 3), false)));
-    m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(500,600),128,256,TheGfxManager::Instance()->getSprites("btns", 3, 6), true)));
-    m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(500,700),128,256,TheGfxManager::Instance()->getSprites("btns", 6, 9), true)));
-    */
-
-    //m_gameObjects.push_back(new Button(new LoaderParams(sf::Vector2f(0,0),128,256,TheGfxManager::Instance()->getSprites("btns", 0, 3), false)));
+    m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(500,500),128,256,TheGfxManager::Instance()->getSprites("tiles",2,3),false)));
 
     std::cout << "Entering play state\n";
     return true;
