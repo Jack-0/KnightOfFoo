@@ -12,20 +12,31 @@
 #include "GameObject.h"
 #include "../utilities/LoaderParams.h"
 
-class Button : GameObject
+class Button : public GameObject
 {
 public:
-    Button(const LoaderParams *pParams);
+    Button(const LoaderParams *pParams, int callbackID);
 
-    void update();
-    void render();
-    void clean();
+    virtual void update();
+    virtual void render();
+    virtual void clean();
 
     void setCallBack(void(*callback) ()) {m_callback = callback; }
+    int getCallbackID() { return m_callback_id; }
 
 private:
 
+
     void (*m_callback) ();
+
+    int m_callback_id;
+
+    enum frame_state
+    {
+        MOUSE_OUT = 0,
+        MOUSE_OVER = 1,
+        MOUSE_CLICK = 2
+    };
 };
 
 

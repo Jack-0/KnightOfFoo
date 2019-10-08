@@ -17,7 +17,7 @@ class GameObject : public Entity
 public:
     GameObject(const LoaderParams *pParams);
 
-    virtual void update() override;
+    virtual void update() override ;
     virtual void render() override;
     virtual void clean()  override;
 
@@ -27,6 +27,8 @@ public:
     void setYAcceleration(float y) { m_acc.y = y; }
 
 protected:
+    // load parameters
+    void load(const LoaderParams* pParams);
 
     // position, velocity and acceleration
     sf::Vector2f m_pos;

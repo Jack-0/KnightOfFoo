@@ -6,6 +6,7 @@
 #include "../Game.h"
 #include "../graphics/GraphicsManager.h"
 #include "../input/InputHandler.h"
+#include "../entity/Button.h"
 
 const std::string PlayState::s_playID = "PLAY";
 
@@ -23,8 +24,8 @@ void PlayState::update()
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::S))
         std::cout << "S key pressed\n";
 
-    if(TheInputHandler::Instance()->isMouseKeyDown(sf::Mouse::Left))
-        std::cout << "Mouse x=" << TheInputHandler::Instance()->getMousePos().x << " y=" << TheInputHandler::Instance()->getMousePos().y << "\n";
+    //if(TheInputHandler::Instance()->isMouseKeyDown(sf::Mouse::Left))
+    //    std::cout << "Mouse x=" << TheInputHandler::Instance()->getMousePos().x << " y=" << TheInputHandler::Instance()->getMousePos().y << "\n";
 }
 
 
@@ -45,8 +46,8 @@ bool PlayState::onEnter()
 {
     // TODO this should probably happen in one action... or maybe not
     TheGfxManager::Instance()->addTexture("../res/test.png", "ground_tiles");
-    TheGfxManager::Instance()->addTexture("../res/buttons.png", "buttons");
     TheGfxManager::Instance()->addSprites("ground_tiles", "tiles", 256, 128, 4);
+    TheGfxManager::Instance()->addTexture("../res/buttons.png", "buttons");
     TheGfxManager::Instance()->addSprites("buttons", "btns", 256, 99, 15);
 
     text = new Text(sf::Vector2f(0,0), "hello world");
@@ -54,9 +55,13 @@ bool PlayState::onEnter()
     m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(0,0),128,256, TheGfxManager::Instance()->getSprites("tiles"), true)));
     m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(500,500),128,256,TheGfxManager::Instance()->getSprites("btns"))));
 
+    /*
     m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(500,500),128,256,TheGfxManager::Instance()->getSprites("btns", 0, 3), false)));
     m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(500,600),128,256,TheGfxManager::Instance()->getSprites("btns", 3, 6), true)));
     m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(500,700),128,256,TheGfxManager::Instance()->getSprites("btns", 6, 9), true)));
+    */
+
+    //m_gameObjects.push_back(new Button(new LoaderParams(sf::Vector2f(0,0),128,256,TheGfxManager::Instance()->getSprites("btns", 0, 3), false)));
 
     std::cout << "Entering play state\n";
     return true;

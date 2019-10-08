@@ -7,6 +7,11 @@
 
 GameObject::GameObject(const LoaderParams *pParams)
 {
+    load(pParams);
+}
+
+void GameObject::load(const LoaderParams* pParams)
+{
     // assign loader parameters
     m_width = pParams->getWidth();
     m_height = pParams->getHeight();
