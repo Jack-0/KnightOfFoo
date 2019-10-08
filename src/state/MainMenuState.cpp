@@ -43,7 +43,7 @@ bool MainMenuState::onEnter()
     TheGfxManager::Instance()->addSprites("buttons", "btns", 256, 99, 15);
 
     Button* play_btn = new Button(new LoaderParams(sf::Vector2f(0,0),128,256,TheGfxManager::Instance()->getSprites("btns", 0, 3), false),1);
-    Button* exit_btn = new Button(new LoaderParams(sf::Vector2f(0,100),128,256,TheGfxManager::Instance()->getSprites("btns", 0, 3), false),2);
+    Button* exit_btn = new Button(new LoaderParams(sf::Vector2f(0,100),128,256,TheGfxManager::Instance()->getSprites("btns", 3, 6), false),2);
 
     play_btn->setCallBack(m_callbacks[play_btn->getCallbackID()]);
     exit_btn->setCallBack(m_callbacks[exit_btn->getCallbackID()]);
