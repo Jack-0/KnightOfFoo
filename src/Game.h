@@ -40,6 +40,7 @@ public:
     void quit();
 
     void zoom(float x);
+    void move(float x, float y);
 
     GameStateMachine* getStateMachine() { return m_pGameStateMachine; }
 
@@ -68,6 +69,7 @@ private:
     // used to generate random numbers
     std::random_device dev;
 
+    float m_zoom_value = 1;
 
 
     int m_fps = 0;

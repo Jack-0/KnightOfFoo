@@ -18,7 +18,10 @@ bool Game::init(const char* title, int width, int height)
     // create window
 
     m_renderWindow = new sf::RenderWindow(sf::VideoMode(m_screenWidth, m_screenHeight), title);
-    m_view = m_renderWindow->getView();
+    m_view = m_renderWindow->getDefaultView();
+    m_view.setSize(width, height);
+    m_renderWindow->setView(m_view);
+
     /*
     TheGameObjectFactory::Instance()->registerType("MenuButton", new ButtonCreator());
     TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
@@ -68,6 +71,8 @@ int Game::getRandom(int low, int high)
 
 void Game::update()
 {
+    //m_view.move(0,0.1);
+    m_renderWindow->setView(m_view);
     m_pGameStateMachine->update();
 }
 
@@ -76,10 +81,6 @@ void Game::clean()
     m_renderWindow->close();
     quit();
     std::cout << "Cleaning game" << std::endl;
-
-    //SDL_DestroyWindow(window);
-    //SDL_DestroyRenderer(renderer);
-    //SDL_Quit();
 }
 
 void Game::quit()
@@ -91,8 +92,6 @@ void Game::handleEvents()
 {
     TheInputHandler::Instance()->update();
     /*
-    TheInputHandler::Instance()->update();
-
     if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN))
     {
         m_pGameStateMachine->changeState(new PlayState());
@@ -102,5 +101,30 @@ void Game::handleEvents()
 
 void Game::zoom(float x)
 {
-    //m_view.
+    // TODO zoom is a mess as it is called multiple times per frame if a key is pressed the issue is state and keypress
+    //m_view.setRotation(x);
+    std::cout << "\ttransform before zoom" << m_view.getRotation() << "\n";
+    //m_view.setCenter(m_renderWindow->getSize().x / 2, m_renderWindow->getSize().y / 2);
+
+
+    if(x > 1)
+        m_zoom_value += .00001f;
+    else
+        m_zoom_value -= .00001f;
+
+    if(m_zoom_value >= 1.00005)
+        return;
+
+    if(m_zoom_value <=  .90005)
+        return;
+
+    //TODO zoom is a mess
+
+    m_view.zoom(m_zoom_value);
+    std::cout << "\ttransform after zoom" << m_view.getRotation() << "\n\n\n\n";
+}
+
+void Game::move(float x, float y)
+{
+    m_view.move(x,y);
 }

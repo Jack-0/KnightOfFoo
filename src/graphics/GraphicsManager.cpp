@@ -63,11 +63,11 @@ sf::Sprite GraphicsManager::getSprite(std::string id, int index)
 
 std::vector<sf::Sprite> GraphicsManager::getSprites(std::string id, int start, int end)
 {
-    if(end == 0 || start > end)
+    if(end == 0 || start >= end)
         return m_spriteMap[id];
 
     std::vector<sf::Sprite> sprites;
-    for(int i = start; i<end; i++)
+    for(int i = start; i<=end; i++)
         sprites.push_back(m_spriteMap[id][i]);
 
     return sprites;
