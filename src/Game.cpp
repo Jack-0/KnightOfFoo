@@ -22,6 +22,8 @@ bool Game::init(const char* title, int width, int height)
     m_view.setSize(width, height);
     m_renderWindow->setView(m_view);
 
+    m_renderWindow->setFramerateLimit(60);
+
     /*
     TheGameObjectFactory::Instance()->registerType("MenuButton", new ButtonCreator());
     TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
@@ -103,25 +105,8 @@ void Game::zoom(float x)
 {
     // TODO zoom is a mess as it is called multiple times per frame if a key is pressed the issue is state and keypress
     //m_view.setRotation(x);
-    std::cout << "\ttransform before zoom" << m_view.getRotation() << "\n";
     //m_view.setCenter(m_renderWindow->getSize().x / 2, m_renderWindow->getSize().y / 2);
-
-
-    if(x > 1)
-        m_zoom_value += .00001f;
-    else
-        m_zoom_value -= .00001f;
-
-    if(m_zoom_value >= 1.00005)
-        return;
-
-    if(m_zoom_value <=  .90005)
-        return;
-
-    //TODO zoom is a mess
-
-    m_view.zoom(m_zoom_value);
-    std::cout << "\ttransform after zoom" << m_view.getRotation() << "\n\n\n\n";
+    m_view.zoom(x);
 }
 
 void Game::move(float x, float y)

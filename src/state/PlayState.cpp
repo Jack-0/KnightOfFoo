@@ -20,17 +20,20 @@ void PlayState::update()
     text->update();
 
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::W))
-    {
-        std::cout << "W key pressed\n";
-        TheGame::Instance()->zoom(-.001f);
-    }
+        TheGame::Instance()->move(0,-1);
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::S))
-    {
-        std::cout << "S key pressed\n";
-        TheGame::Instance()->zoom(.001f);
-    }
+        TheGame::Instance()->move(0,1);
+    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::A))
+        TheGame::Instance()->move(-1,0);
+    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::D))
+        TheGame::Instance()->move(1,0);
 
-    TheGame::Instance()->move(0.001f, 0.001f);
+    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Up))
+        TheGame::Instance()->zoom(1 - .2);
+    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Down))
+        TheGame::Instance()->zoom(1 + .2);
+    //TheGame::Instance()->move(0.001f, 0.001f);
+    //TheGame::Instance()->zoom(0.00001f);
     //if(TheInputHandler::Instance()->isMouseKeyDown(sf::Mouse::Left))
     //    std::cout << "Mouse x=" << TheInputHandler::Instance()->getMousePos().x << " y=" << TheInputHandler::Instance()->getMousePos().y << "\n";
 }
