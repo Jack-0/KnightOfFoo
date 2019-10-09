@@ -10,12 +10,12 @@
 class LoaderParams
 {
 public:
-    LoaderParams(sf::Vector2f pos, int height, int width, std::vector<sf::Sprite>sprites,
+    LoaderParams(sf::Vector2f pos, int width, int height, std::vector<sf::Sprite>sprites,
             bool animated = false, int currentFrame=0, float anim_speed = 200)
     :
     m_pos(pos),
-    m_height(height),
     m_width(width),
+    m_height(height),
     m_sprites(sprites),
     m_current_frame(currentFrame),
     m_animated(animated),
@@ -26,8 +26,8 @@ public:
     // getters
     sf::Vector2f getPos() const  {return m_pos; }
 
-    int getHeight() const { return m_height; }
     int getWidth() const { return m_width; }
+    int getHeight() const { return m_height; }
 
     std::vector<sf::Sprite> getSprites() const{ return m_sprites; }
 
