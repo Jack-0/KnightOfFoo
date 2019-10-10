@@ -34,7 +34,6 @@ void Button::update()
         if(TheInputHandler::Instance()->isMouseKeyDown(sf::Mouse::Button::Left)) {
             m_frame = MOUSE_CLICK;
             m_callback();
-            //std::cout << "button clicked\n";
         }
         else
             m_frame = MOUSE_OVER;

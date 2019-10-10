@@ -108,3 +108,14 @@ void Game::move(float x, float y)
 {
     m_view.move(x, y);
 }
+
+void Game::menuView()
+{
+    m_last_view_x = m_view.getCenter().x; m_last_view_y = m_view.getCenter().y;
+    m_view.setCenter(m_renderWindow->getSize().x/2, m_renderWindow->getSize().y/2);
+}
+
+void Game::gameView()
+{ 
+    m_view.setCenter(m_last_view_x, m_last_view_y); 
+}

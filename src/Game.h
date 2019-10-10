@@ -44,12 +44,10 @@ public:
 
     sf::Vector2f getCenter() { return m_view.getCenter(); }
 
-    void menuView()
-    {
-        m_last_view_x = m_view.getCenter().x; m_last_view_y = m_view.getCenter().y;
-        m_view.setCenter(m_renderWindow->getSize().x/2, m_renderWindow->getSize().y/2);
-    }
-    void gameView() { m_view.setCenter(m_last_view_x, m_last_view_y);}
+    // move the camera/view to menu position or last game position
+    // todo add a shader to obscure this transition
+    void menuView();
+    void gameView();
 
     GameStateMachine* getStateMachine() { return m_pGameStateMachine; }
 
@@ -59,9 +57,9 @@ public:
 
 private:
 
+    // used to save last game camera/view position
     int m_last_view_x;
     int m_last_view_y;
-
 
     Game() {}
     static Game* s_pInstance;
