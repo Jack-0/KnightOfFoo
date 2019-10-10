@@ -19,6 +19,7 @@ void GameOverState::s_restartPlay()
 
 bool GameOverState::onEnter()
 {
+    TheGame::Instance()->menuView();
     // parse the state
     //StateParser stateParser;
     //stateParser.parseState("../res/xml/test.xml", s_gameOverID, &m_gameObjects, &m_textureIDs);

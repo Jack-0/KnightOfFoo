@@ -18,8 +18,15 @@ bool Game::init(const char* title, int width, int height)
     // create window
 
     m_renderWindow = new sf::RenderWindow(sf::VideoMode(m_screenWidth, m_screenHeight), title);
-    m_view = m_renderWindow->getDefaultView();
+
+    // center window on screen
+    auto desktop = sf::VideoMode::getDesktopMode();
+    m_renderWindow->setPosition(sf::Vector2i(desktop.width/2 - m_renderWindow->getSize().x/2, desktop.height/2 - m_renderWindow->getSize().y/2));
+
+    //m_view = m_renderWindow->getDefaultView();
     m_view.setSize(width, height);
+
+
     m_renderWindow->setView(m_view);
 
     m_renderWindow->setFramerateLimit(60);
@@ -46,16 +53,11 @@ bool Game::init(const char* title, int width, int height)
 
 void Game::render()
 {
-    //SDL_RenderClear(renderer);
     /// render start
-    m_renderWindow->clear();
-
-    m_pGameStateMachine->render();
-
-    m_renderWindow->display();
-
+    m_renderWindow->clear();         // clear screen
+    m_pGameStateMachine->render();   // draw pixels
+    m_renderWindow->display();       // show pixels
     /// render end
-    //SDL_RenderPresent(renderer);
 }
 
 /**
@@ -73,7 +75,6 @@ int Game::getRandom(int low, int high)
 
 void Game::update()
 {
-    //m_view.move(0,0.1);
     m_renderWindow->setView(m_view);
     m_pGameStateMachine->update();
 }
@@ -93,12 +94,6 @@ void Game::quit()
 void Game::handleEvents()
 {
     TheInputHandler::Instance()->update();
-    /*
-    if(TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN))
-    {
-        m_pGameStateMachine->changeState(new PlayState());
-    }
-     */
 }
 
 void Game::zoom(float x)
@@ -111,5 +106,5 @@ void Game::zoom(float x)
 
 void Game::move(float x, float y)
 {
-    m_view.move(x,y);
+    m_view.move(x, y);
 }

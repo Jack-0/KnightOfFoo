@@ -8,13 +8,13 @@
 #include <vector>
 #include "GameState.h"
 #include "MenuState.h"
+#include "../entity/GameObject.h"
 
 class GameObject;
 
 class GameOverState : public MenuState
 {
 public:
-
     virtual void update();
     virtual void render();
 
@@ -24,9 +24,9 @@ public:
     virtual std::string getStateID() const {return s_gameOverID;}
 
 private:
-
     virtual void setCallbacks(const std::vector<Callback>& callbacks);
 
+    // functions used with button callbacks
     static void s_gameOverToMain();
     static void s_restartPlay();
 

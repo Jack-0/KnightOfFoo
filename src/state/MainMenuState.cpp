@@ -12,6 +12,9 @@ const std::string MainMenuState::s_menuID = "MENU";
 
 void MainMenuState::update()
 {
+    m_play_btn->setCentered( -(m_btn_w / 2), -((m_btn_h / 1.5)*2) );
+    m_exit_btn->setCentered( -(m_btn_w / 2), 0);
+
     for(int i = 0; i < m_gameObjects.size(); i++)
     {
         m_gameObjects[i]->update();
@@ -28,9 +31,7 @@ void MainMenuState::render()
 
 bool MainMenuState::onEnter()
 {
-    // parse the state
-    //StateParser stateParser;
-    //stateParser.parseState("../res/xml/test.xml", s_menuID, &m_gameObjects, &m_textureIDs);
+    TheGame::Instance()->menuView();
 
     m_callbacks.push_back(0); // to start from 1...
     m_callbacks.push_back(s_menuToPlay);
@@ -39,18 +40,23 @@ bool MainMenuState::onEnter()
     // set the callbacks from menu items
     setCallbacks(m_callbacks);
 
+    // variables for buttons
+    int center_x = TheGame::Instance()->getCenter().x;
+    int center_y = TheGame::Instance()->getCenter().y;
     // add button texture
     TheGfxManager::Instance()->addTexture("../res/buttons.png", "buttons");
-    TheGfxManager::Instance()->addSprites("buttons", "btns", 256, 99, 15);
+    TheGfxManager::Instance()->addSprites("buttons", "btns", m_btn_w, m_btn_h, 15);
     // create buttons
-    Button* play_btn = new Button(new LoaderParams(sf::Vector2f(0,0),128,256,TheGfxManager::Instance()->getSprites("btns", 0, 3), false),1);
-    Button* exit_btn = new Button(new LoaderParams(sf::Vector2f(0,100),128,256,TheGfxManager::Instance()->getSprites("btns", 3, 6), false),2);
+    m_play_btn = new Button(new LoaderParams(sf::Vector2f(center_x - m_btn_w / 2, center_y - (m_btn_h / 1.5)*2 )
+            ,m_btn_w, m_btn_h,TheGfxManager::Instance()->getSprites("btns", 0, 3), false), 1);
+    m_exit_btn = new Button(new LoaderParams(sf::Vector2f(center_x - m_btn_w / 2, center_y)
+            ,m_btn_w, m_btn_h,TheGfxManager::Instance()->getSprites("btns", 3, 6), false), 2);
     // add button callbacks
-    play_btn->setCallBack(m_callbacks[play_btn->getCallbackID()]);
-    exit_btn->setCallBack(m_callbacks[exit_btn->getCallbackID()]);
+    m_play_btn->setCallBack(m_callbacks[m_play_btn->getCallbackID()]);
+    m_exit_btn->setCallBack(m_callbacks[m_exit_btn->getCallbackID()]);
     // add buttons
-    m_gameObjects.push_back(play_btn);
-    m_gameObjects.push_back(exit_btn);
+    m_gameObjects.push_back(m_play_btn);
+    m_gameObjects.push_back(m_exit_btn);
 
     std::cout << "Entering menu state\n";
     return true;

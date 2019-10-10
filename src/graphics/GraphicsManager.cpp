@@ -47,7 +47,7 @@ void GraphicsManager::addSprites(std::string texture_id, std::string sprite_id, 
             row++;
         }
 
-        std::cout << "Texture=" << texture_id <<" pushed back sprite " << i << "(row=" << row << " col=" << column <<") texture.x =" << m_textureMap[texture_id].getSize().x <<"\n";
+        //std::cout << "Texture=" << texture_id <<" pushed back sprite " << i << "(row=" << row << " col=" << column <<") texture.x =" << m_textureMap[texture_id].getSize().x <<"\n";
     }
 
     m_spriteMap[sprite_id] = sprites;

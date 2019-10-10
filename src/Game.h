@@ -42,6 +42,15 @@ public:
     void zoom(float x);
     void move(float x, float y);
 
+    sf::Vector2f getCenter() { return m_view.getCenter(); }
+
+    void menuView()
+    {
+        m_last_view_x = m_view.getCenter().x; m_last_view_y = m_view.getCenter().y;
+        m_view.setCenter(m_renderWindow->getSize().x/2, m_renderWindow->getSize().y/2);
+    }
+    void gameView() { m_view.setCenter(m_last_view_x, m_last_view_y);}
+
     GameStateMachine* getStateMachine() { return m_pGameStateMachine; }
 
     // returns a random number in the range low - high
@@ -49,6 +58,10 @@ public:
 
 
 private:
+
+    int m_last_view_x;
+    int m_last_view_y;
+
 
     Game() {}
     static Game* s_pInstance;

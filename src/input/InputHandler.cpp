@@ -35,6 +35,7 @@ bool InputHandler::isMouseKeyDown(sf::Mouse::Button btn)
     if(sf::Mouse::isButtonPressed(btn))
         true;
     false;
+
 }
 
 sf::Vector2i InputHandler::getMousePos()

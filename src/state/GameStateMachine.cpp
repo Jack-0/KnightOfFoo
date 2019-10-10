@@ -26,7 +26,6 @@ void GameStateMachine::popState()
 
 void GameStateMachine::changeState(GameState *pState)
 {
-    std::cout << "[STATE CHANGED]\n";
 
     if(!m_gameStates.empty())
     {
@@ -47,6 +46,8 @@ void GameStateMachine::changeState(GameState *pState)
     }
 
     m_gameStates.push_back(pState);
+
+    std::cout << "[STATE CHANGED]\n";
 
     // init it
     m_gameStates.back()->onEnter();
