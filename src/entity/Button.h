@@ -24,7 +24,7 @@ public:
     void setCallBack(void(*callback) ()) {m_callback = callback; }
     int getCallbackID() { return m_callback_id; }
 
-    void setCentered(int xOffset, int yOffset);
+    //void setCentered(int xOffset, int yOffset);
 
 private:
 

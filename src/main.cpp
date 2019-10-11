@@ -4,13 +4,13 @@
 
 int main()
 {
-    TheGame::Instance()->init("SFML",900,900);
+    Game::Instance()->init("SFML",900,900);
 
-    while (TheGame::Instance()->isRunning())
+    while (Game::Instance()->isRunning())
     {
-        TheGame::Instance()->handleEvents();
-        TheGame::Instance()->update();
-        TheGame::Instance()->render();
+        Game::Instance()->handleEvents();
+        Game::Instance()->update();
+        Game::Instance()->render();
     }
 
     return 0;

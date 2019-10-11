@@ -23,19 +23,21 @@ bool Game::init(const char* title, int width, int height)
     auto desktop = sf::VideoMode::getDesktopMode();
     m_renderWindow->setPosition(sf::Vector2i(desktop.width/2 - m_renderWindow->getSize().x/2, desktop.height/2 - m_renderWindow->getSize().y/2));
 
-    //m_view = m_renderWindow->getDefaultView();
+    m_view = m_renderWindow->getDefaultView();
     m_view.setSize(width, height);
 
+    //m_view_absolute_center = m_view.getCenter();
+    m_view_absolute_center = sf::Vector2f(0,0);
 
     m_renderWindow->setView(m_view);
 
     m_renderWindow->setFramerateLimit(60);
 
     /*
-    TheGameObjectFactory::Instance()->registerType("MenuButton", new ButtonCreator());
-    TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
-    TheGameObjectFactory::Instance()->registerType("Enemy", new EnemyCreator());
-    TheGameObjectFactory::Instance()->registerType("AnimatedGraphic", new AnimatedGraphicCreator());
+    GameObjectFactory::Instance()->registerType("MenuButton", new ButtonCreator());
+    GameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
+    GameObjectFactory::Instance()->registerType("Enemy", new EnemyCreator());
+    GameObjectFactory::Instance()->registerType("AnimatedGraphic", new AnimatedGraphicCreator());
 
     TheSoundManager::Instance()->load("../res/sound/bang.wav", "bang");
     TheSoundManager::Instance()->load("../res/sound/beep.wav", "beep");
@@ -101,14 +103,21 @@ void Game::zoom(float x)
     // TODO zoom is a mess as it is called multiple times per frame if a key is pressed the issue is state and keypress
     //m_view.setRotation(x);
     //m_view.setCenter(m_renderWindow->getSize().x / 2, m_renderWindow->getSize().y / 2);
+    //m_view_absolute_center = m_view_absolute_center * x;
+
+    // zoom must keep state; zoom must be reset upon menu entry
     m_view.zoom(x);
 }
 
 void Game::move(float x, float y)
 {
+    m_view_absolute_center.x += x;
+    m_view_absolute_center.y += y;
+    //m_view.setCenter(m_view_absolute_center.x + m_view.getCenter().x, m_view_absolute_center.y + m_view.getCenter().y);
     m_view.move(x, y);
 }
 
+/*
 void Game::menuView()
 {
     m_last_view_x = m_view.getCenter().x; m_last_view_y = m_view.getCenter().y;
@@ -119,3 +128,4 @@ void Game::gameView()
 { 
     m_view.setCenter(m_last_view_x, m_last_view_y); 
 }
+*/

@@ -14,11 +14,11 @@ InputHandler::InputHandler()
 void InputHandler::update()
 {
     // poll all events
-    while (TheGame::Instance()->getRenderWindow()->pollEvent(*event))
+    while (Game::Instance()->getRenderWindow()->pollEvent(*event))
     {
         // if the exit button is pressed exit the game
         if (event->type == sf::Event::Closed)
-            TheGame::Instance()->clean();
+            Game::Instance()->clean();
 
     }
 }
@@ -41,7 +41,7 @@ bool InputHandler::isMouseKeyDown(sf::Mouse::Button btn)
 sf::Vector2i InputHandler::getMousePos()
 {
     // get mouse position relative to the render window
-    return sf::Mouse::getPosition(*TheGame::Instance()->getRenderWindow());
+    return sf::Vector2i(sf::Mouse::getPosition(*Game::Instance()->getRenderWindow())) + Game::Instance()->getAbsCenter();
 }
 
 void InputHandler::clean() {}

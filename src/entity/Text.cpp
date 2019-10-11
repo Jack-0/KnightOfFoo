@@ -24,10 +24,13 @@ void Text::update()
 
 void Text::render()
 {
-    TheGame::Instance()->getRenderWindow()->draw(m_text);
+    Game::Instance()->getRenderWindow()->draw(m_text);
 }
 
 void Text::clean()
 {
 
 }
+
+
+void Text::center(){m_pos = Game::Instance()->getCenter(); }

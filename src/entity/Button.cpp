@@ -13,8 +13,8 @@ Button::Button(const LoaderParams *pParams, int callbackID) : GameObject(pParams
 
 void Button::update()
 {
-    int mx = TheInputHandler::Instance()->getMousePos().x;
-    int my = TheInputHandler::Instance()->getMousePos().y;
+    int mx = TheInputHandler::Instance()->getMousePos().x;// + Game::Instance()->getAbsCenter().x;
+    int my = TheInputHandler::Instance()->getMousePos().y;// + Game::Instance()->getAbsCenter().y;
 
     // if mouse pos intersects button sprite
     if(mx < (m_pos.x + m_width)
@@ -22,14 +22,7 @@ void Button::update()
        && my < (m_pos.y + m_height)
        && my > m_pos.y )
     {
-        //std::cout << "mouse inside\n";
-        if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Key::E))
-        {
-            std::cout << "[MOUSE X=" << mx << " Y=" << my << "]"
-                         "[BTN X=" << m_pos.x << " Y=" << m_pos.y <<"]"
-                         "[SPRITE X="<< m_sprites[0].getPosition().x << " Y=" << m_sprites[0].getPosition().y << "]"
-                         "[VIEW X="<< TheGame::Instance()->getRenderWindow()->getView().getCenter().x << " Y=" << TheGame::Instance()->getRenderWindow()->getView().getCenter().x << "]\n";
-        }
+
 
         if(TheInputHandler::Instance()->isMouseKeyDown(sf::Mouse::Button::Left)) {
             m_frame = MOUSE_CLICK;
@@ -40,6 +33,16 @@ void Button::update()
     }
     else
         m_frame = MOUSE_OUT;
+
+    //std::cout << "mouse inside\n";
+
+    // TODO debug
+    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Key::E))
+    {
+        std::cout << "[MOUSE X=" << mx << " Y=" << my << "]"
+                     "\n\t[LEFT_BTN  X=" << m_pos.x << " Y=" << m_pos.y <<"]"
+                     "\n\t[RIGHT_BTN X=" << m_pos.x + m_width << " Y=" << m_pos.y + m_height <<"]\n";
+    }
 
     GameObject::update();
 }
@@ -54,9 +57,11 @@ void Button::clean()
     GameObject::clean();
 }
 
+/*
 void Button::setCentered(int xOffset, int yOffset)
 {
-    m_pos.x = TheGame::Instance()->getCenter().x + xOffset;
-    m_pos.y = TheGame::Instance()->getCenter().y + yOffset;
+    //m_pos.x = Game::Instance()->getCenter().x + xOffset;
+    //m_pos.y = Game::Instance()->getCenter().y + yOffset;
 }
+ */
 

@@ -9,7 +9,7 @@ GraphicsManager* GraphicsManager::s_pInstance = 0;
 
 void GraphicsManager::drawSprite(sf::Sprite sprite)
 {
-    TheGame::Instance()->getRenderWindow()->draw(sprite);
+    Game::Instance()->getRenderWindow()->draw(sprite);
 }
 
 bool GraphicsManager::addTexture(std::string filename, std::string id)

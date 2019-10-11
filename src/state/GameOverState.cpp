@@ -9,17 +9,17 @@ const std::string GameOverState::s_gameOverID = "GAMEOVER";
 
 void GameOverState::s_gameOverToMain()
 {
-    TheGame::Instance()->getStateMachine()->changeState(new MainMenuState);
+    Game::Instance()->getStateMachine()->changeState(new MainMenuState);
 }
 
 void GameOverState::s_restartPlay()
 {
-    TheGame::Instance()->getStateMachine()->changeState(new PlayState);
+    Game::Instance()->getStateMachine()->changeState(new PlayState);
 }
 
 bool GameOverState::onEnter()
 {
-    TheGame::Instance()->menuView();
+    //Game::Instance()->menuView();
     // parse the state
     //StateParser stateParser;
     //stateParser.parseState("../res/xml/test.xml", s_gameOverID, &m_gameObjects, &m_textureIDs);

@@ -12,8 +12,8 @@ const std::string MainMenuState::s_menuID = "MENU";
 
 void MainMenuState::update()
 {
-    m_play_btn->setCentered( -(m_btn_w / 2), -((m_btn_h / 1.5)*2) );
-    m_exit_btn->setCentered( -(m_btn_w / 2), 0);
+    //m_play_btn->setCentered( -(m_btn_w / 2), -((m_btn_h / 1.5)*2) );
+    //m_exit_btn->setCentered( -(m_btn_w / 2), 0);
 
     for(int i = 0; i < m_gameObjects.size(); i++)
     {
@@ -31,7 +31,7 @@ void MainMenuState::render()
 
 bool MainMenuState::onEnter()
 {
-    TheGame::Instance()->menuView();
+    //Game::Instance()->menuView();
 
     m_callbacks.push_back(0); // to start from 1...
     m_callbacks.push_back(s_menuToPlay);
@@ -41,8 +41,8 @@ bool MainMenuState::onEnter()
     setCallbacks(m_callbacks);
 
     // variables for buttons
-    int center_x = TheGame::Instance()->getCenter().x;
-    int center_y = TheGame::Instance()->getCenter().y;
+    int center_x = Game::Instance()->getCenter().x;
+    int center_y = Game::Instance()->getCenter().y;
     // add button texture
     TheGfxManager::Instance()->addTexture("../res/buttons.png", "buttons");
     TheGfxManager::Instance()->addSprites("buttons", "btns", m_btn_w, m_btn_h, 15);
@@ -97,13 +97,13 @@ void MainMenuState::s_menuToPlay()
 {
     std::cout << "Play btn clicked!\n";
     // TODO playstate is causing the problem works with new MenuState?? seg fault
-    TheGame::Instance()->getStateMachine()->changeState(new PlayState());
+    Game::Instance()->getStateMachine()->changeState(new PlayState());
 }
 
 void MainMenuState::s_exitFromMenu()
 {
     std::cout << "Exit btn clicked!\n";
-    TheGame::Instance()->quit();
+    Game::Instance()->quit();
 }
 
 

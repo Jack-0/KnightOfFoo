@@ -12,19 +12,19 @@ const std::string PauseState::s_pauseID = "PAUSE";
 void PauseState::s_pauseToMain()
 {
     std::cout <<"Pause to main\n\n\n!!!!!";
-    TheGame::Instance()->getStateMachine()->changeState(new MainMenuState());
+    Game::Instance()->getStateMachine()->changeState(new MainMenuState());
 }
 
 void PauseState::s_resumePlay()
 {
     std::cout <<"Resume play\n\n\n!!!!!!";
-    TheGame::Instance()->getStateMachine()->popState();
+    Game::Instance()->getStateMachine()->popState();
 }
 
 void PauseState::update()
 {
-    m_resume_btn->setCentered( -(m_btn_w / 2), -((m_btn_h / 1.5)*2) );
-    m_menu_btn->setCentered( -(m_btn_w / 2), 0);
+    //m_resume_btn->setCentered( -(m_btn_w / 2), -((m_btn_h / 1.5)*2) );
+    //m_menu_btn->setCentered( -(m_btn_w / 2), 0);
 
     for(int i = 0; i < m_gameObjects.size(); i++)
     {
@@ -40,7 +40,7 @@ void PauseState::render()
 
 bool PauseState::onEnter()
 {
-    TheGame::Instance()->menuView(); // TODO this is a bit of a hack
+    //Game::Instance()->menuView(); // TODO this is a bit of a hack
 
     m_callbacks.push_back(0); // to start from 1...
     m_callbacks.push_back(s_resumePlay);
@@ -51,8 +51,8 @@ bool PauseState::onEnter()
     setCallbacks(m_callbacks);
 
     // variables for buttons
-    int center_x = TheGame::Instance()->getCenter().x;
-    int center_y = TheGame::Instance()->getCenter().y;
+    int center_x = Game::Instance()->getCenter().x;
+    int center_y = Game::Instance()->getCenter().y;
     // add button texture
     //TheGfxManager::Instance()->addTexture("../res/buttons.png", "buttons");
     //TheGfxManager::Instance()->addSprites("buttons", "btns", m_btn_w, m_btn_h, 15);
@@ -102,7 +102,7 @@ bool PauseState::onExit()
         //TheTextureManager::Instance()->clearFromTextureMap(m_textureIDs[i]);
     }
 
-    TheGame::Instance()->gameView();
+    //Game::Instance()->gameView();
 
     std::cout << "Exiting pause state\n";
     return true;

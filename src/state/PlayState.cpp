@@ -15,30 +15,31 @@ void PlayState::update()
 {
 
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Escape))
-        TheGame::Instance()->getStateMachine()->pushState(new PauseState());
+        Game::Instance()->getStateMachine()->pushState(new PauseState());
 
     for(int i = 0; i < m_gameObjects.size(); i++)
     {
         m_gameObjects[i]->update();
     }
+    text->center();
     text->update();
 
     int speed = 2;
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::W))
-        TheGame::Instance()->move(0,-1 * speed);
+        Game::Instance()->move(0,-1 * speed);
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::S))
-        TheGame::Instance()->move(0,1 * speed);
+        Game::Instance()->move(0,1 * speed);
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::A))
-        TheGame::Instance()->move(-1 * speed,0);
+        Game::Instance()->move(-1 * speed,0);
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::D))
-        TheGame::Instance()->move(1 * speed,0);
+        Game::Instance()->move(1 * speed,0);
 
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Up))
-        TheGame::Instance()->zoom(1 - .2);
+        Game::Instance()->zoom(1 - .2);
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Down))
-        TheGame::Instance()->zoom(1 + .2);
-    //TheGame::Instance()->move(0.001f, 0.001f);
-    //TheGame::Instance()->zoom(0.00001f);
+        Game::Instance()->zoom(1 + .2);
+    //Game::Instance()->move(0.001f, 0.001f);
+    //Game::Instance()->zoom(0.00001f);
     //if(TheInputHandler::Instance()->isMouseKeyDown(sf::Mouse::Left))
     //    std::cout << "Mouse x=" << TheInputHandler::Instance()->getMousePos().x << " y=" << TheInputHandler::Instance()->getMousePos().y << "\n";
 }
@@ -56,7 +57,7 @@ void PlayState::render()
 
 bool PlayState::onEnter()
 {
-    TheGame::Instance()->gameView();
+    //Game::Instance()->gameView();
     // TODO this should probably happen in one action... or maybe not
     TheGfxManager::Instance()->addTexture("../res/test.png", "ground_tiles");
     TheGfxManager::Instance()->addSprites("ground_tiles", "tiles", 256, 128, 4);
@@ -70,7 +71,7 @@ bool PlayState::onEnter()
     // add some tiles
     for(int i = 0; i < 10; i ++)
         for(int j = 0; j < 10; j++)
-            m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(i*128,j*128),256,128, TheGfxManager::Instance()->getSprites("tiles"), false, TheGame::Instance()->getRandom(0,3))));
+            m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(i*128,j*128),256,128, TheGfxManager::Instance()->getSprites("tiles"), false, Game::Instance()->getRandom(0,3))));
     // test ^^^
     for(int i = 0; i < 15; i++)
         m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(0,i*100),256,99, TheGfxManager::Instance()->getSprites("btns"), false, i)));

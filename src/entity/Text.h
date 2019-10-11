@@ -20,6 +20,8 @@ public:
     void render();
     void clean();
 
+    void center();// {m_pos = Game::Instance()->getCenter(); }
+
     void changeMsg(std::string newMsg) {m_msg = newMsg;}
 
     int getWidth() { return m_text.getLocalBounds().width; }

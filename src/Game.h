@@ -42,12 +42,20 @@ public:
     void zoom(float x);
     void move(float x, float y);
 
-    sf::Vector2f getCenter() { return m_view.getCenter(); }
+    sf::Vector2f getCenter()
+    {
+        return m_view.getCenter();
+    }
+
+    sf::Vector2i getAbsCenter()
+    {
+        return static_cast<sf::Vector2i>(m_view_absolute_center);
+    }
 
     // move the camera/view to menu position or last game position
     // todo add a shader to obscure this transition
-    void menuView();
-    void gameView();
+    //void menuView();
+    //void gameView();
 
     GameStateMachine* getStateMachine() { return m_pGameStateMachine; }
 
@@ -58,8 +66,14 @@ public:
 private:
 
     // used to save last game camera/view position
-    int m_last_view_x;
-    int m_last_view_y;
+    //int m_last_view_x;
+    //int m_last_view_y;
+
+    // used to find the absolute center position
+    sf::Vector2f m_view_absolute_center;
+
+    // zoom variables
+
 
     Game() {}
     static Game* s_pInstance;
@@ -86,7 +100,7 @@ private:
     int m_fps = 0;
 };
 
-typedef Game TheGame;
+//typedef Game Game;
 
 #endif //HELLOSDL_GAME_H
 
