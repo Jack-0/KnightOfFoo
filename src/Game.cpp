@@ -31,7 +31,7 @@ bool Game::init(const char* title, int width, int height)
 
     m_renderWindow->setView(m_view);
 
-    m_renderWindow->setFramerateLimit(60);
+    m_renderWindow->setFramerateLimit(60); // TODO switch out for better game loop (fixed time-step)
 
     /*
     GameObjectFactory::Instance()->registerType("MenuButton", new ButtonCreator());
@@ -105,6 +105,7 @@ void Game::zoom(float x)
     //m_view.setCenter(m_renderWindow->getSize().x / 2, m_renderWindow->getSize().y / 2);
     //m_view_absolute_center = m_view_absolute_center * x;
 
+    current_zoom *= x;
     // zoom must keep state; zoom must be reset upon menu entry
     m_view.zoom(x);
 }

@@ -33,4 +33,13 @@ void Text::clean()
 }
 
 
-void Text::center(){m_pos = Game::Instance()->getCenter(); }
+void Text::center()
+{
+    m_pos = Game::Instance()->getCenter();
+}
+
+void Text::scale()
+{
+    float zoom = Game::Instance()->getCurrentZoom();
+    m_text.setScale(sf::Vector2f(zoom,zoom));
+}

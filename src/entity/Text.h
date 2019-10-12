@@ -21,6 +21,7 @@ public:
     void clean();
 
     void center();// {m_pos = Game::Instance()->getCenter(); }
+    void scale();
 
     void changeMsg(std::string newMsg) {m_msg = newMsg;}
 

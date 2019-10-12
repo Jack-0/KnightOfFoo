@@ -22,6 +22,7 @@ void PlayState::update()
         m_gameObjects[i]->update();
     }
     text->center();
+    text->scale();
     text->update();
 
     int speed = 2;
@@ -66,6 +67,8 @@ bool PlayState::onEnter()
 
 
     text = new Text(sf::Vector2f(0,0), "Hello SFML World!"); // maybe text should be a GameObject
+
+
     m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(0,0),256,128, TheGfxManager::Instance()->getSprites("tiles"), true)));
 
     // add some tiles
