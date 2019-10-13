@@ -12,6 +12,7 @@
 #include "PauseState.h"
 #include "GameOverState.h"
 #include "../entity/Text.h"
+#include "../world/World.h"
 
 #include <SFML/Graphics/CircleShape.hpp>
 
@@ -38,6 +39,9 @@ private:
 
     static const std::string s_playID;
 
+    // the world, contains tile map and tile information
+    World* m_world;
+    // text
     Text* text;
     // a vector of enemies
     std::vector<GameObject*> m_gameObjects;

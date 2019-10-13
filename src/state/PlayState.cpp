@@ -13,18 +13,20 @@ const std::string PlayState::s_playID = "PLAY";
 
 void PlayState::update()
 {
-
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Escape))
         Game::Instance()->getStateMachine()->pushState(new PauseState());
 
+    m_world->update();
+
     for(int i = 0; i < m_gameObjects.size(); i++)
-    {
         m_gameObjects[i]->update();
-    }
+
+    // keep text centered and scaled
     text->center();
     text->scale();
     text->update();
 
+    // move the map with keys TODO move to PLayer
     int speed = 2;
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::W))
         Game::Instance()->move(0,-1 * speed);
@@ -35,49 +37,44 @@ void PlayState::update()
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::D))
         Game::Instance()->move(1 * speed,0);
 
+    // zoom
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Up))
         Game::Instance()->zoom(1 - .2);
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Down))
         Game::Instance()->zoom(1 + .2);
-    //Game::Instance()->move(0.001f, 0.001f);
-    //Game::Instance()->zoom(0.00001f);
-    //if(TheInputHandler::Instance()->isMouseKeyDown(sf::Mouse::Left))
-    //    std::cout << "Mouse x=" << TheInputHandler::Instance()->getMousePos().x << " y=" << TheInputHandler::Instance()->getMousePos().y << "\n";
+
+    // TODO test click to place tile DEBUG WILL REMOVE
+    if(TheInputHandler::Instance()->isMouseKeyDown(sf::Mouse::Left))
+    {
+        float x = TheInputHandler::Instance()->getMousePos().x;
+        float y = TheInputHandler::Instance()->getMousePos().y;
+        m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(x,y),256,128, TheGfxManager::Instance()->getSprites("tiles"), false)));
+    }
+    // TODO ^
 }
 
 
 void PlayState::render()
 {
+   m_world->render();
+
    for(int i = 0; i < m_gameObjects.size(); i++)
-   {
         m_gameObjects[i]->render();
-   }
+
    text->render();
 }
 
 
 bool PlayState::onEnter()
 {
-    //Game::Instance()->gameView();
-    // TODO this should probably happen in one action... or maybe not
-    TheGfxManager::Instance()->addTexture("../res/test.png", "ground_tiles");
-    TheGfxManager::Instance()->addSprites("ground_tiles", "tiles", 256, 128, 4);
-    TheGfxManager::Instance()->addTexture("../res/buttons.png", "buttons");
-    TheGfxManager::Instance()->addSprites("buttons", "btns", 256, 99, 15);
-
-
+    // create text TODO testing
     text = new Text(sf::Vector2f(0,0), "Hello SFML World!"); // maybe text should be a GameObject
 
-
-    m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(0,0),256,128, TheGfxManager::Instance()->getSprites("tiles"), true)));
-
-    // add some tiles
-    for(int i = 0; i < 10; i ++)
-        for(int j = 0; j < 10; j++)
-            m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(i*128,j*128),256,128, TheGfxManager::Instance()->getSprites("tiles"), false, Game::Instance()->getRandom(0,3))));
-    // test ^^^
-    for(int i = 0; i < 15; i++)
-        m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(0,i*100),256,99, TheGfxManager::Instance()->getSprites("btns"), false, i)));
+    // variables to make world only as wide and high as the screen
+    int w = Game::Instance()->getRenderWindow()->getSize().x / 256; // 256 is tile width
+    int h = (Game::Instance()->getRenderWindow()->getSize().y / 128) * 2; // 128 is tile height (multiplied by 2 due to isometric depth)
+    // point m_world to a new World
+    m_world = new World(w, h);
 
     std::cout << "Entering play state\n";
     return true;
@@ -88,12 +85,12 @@ bool PlayState::onExit()
 {
     // clean all game objects
     for(int i = 0; i < m_gameObjects.size(); i++)
-    {
         m_gameObjects[i]->clean();
-    }
+
     // remove all game objects from the vector
     m_gameObjects.clear();
 
+    m_world->clean();
     text->clean();
     delete(text);
 
