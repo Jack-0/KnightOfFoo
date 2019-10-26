@@ -2,8 +2,8 @@
 // Created by jack on 31/05/19.
 //
 
-#ifndef HELLOSDL_GAMESTATE_H
-#define HELLOSDL_GAMESTATE_H
+#ifndef KNIGHT_OF_FOO_GAMESTATE_H
+#define KNIGHT_OF_FOO_GAMESTATE_H
 
 #include <string>
 
@@ -25,4 +25,4 @@ protected:
     std::vector<std::string> m_textureIDs;
 };
 
-#endif //HELLOSDL_GAMESTATE_H
+#endif //KNIGHT_OF_FOO_GAMESTATE_H

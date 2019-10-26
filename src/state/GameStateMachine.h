@@ -2,8 +2,8 @@
 // Created by jack on 01/06/19.
 //
 
-#ifndef HELLOSDL_GAMESTATEMACHINE_H
-#define HELLOSDL_GAMESTATEMACHINE_H
+#ifndef KNIGHT_OF_FOO_GAMESTATEMACHINE_H
+#define KNIGHT_OF_FOO_GAMESTATEMACHINE_H
 
 #include <vector>
 #include "GameState.h"
@@ -24,4 +24,4 @@ private:
 };
 
 
-#endif //HELLOSDL_GAMESTATEMACHINE_H
+#endif //KNIGHT_OF_FOO_GAMESTATEMACHINE_H

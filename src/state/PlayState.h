@@ -2,8 +2,8 @@
 // Created by jack on 31/05/19.
 //
 
-#ifndef HELLOSDL_PLAYSTATE_H
-#define HELLOSDL_PLAYSTATE_H
+#ifndef KNIGHT_OF_FOO_PLAYSTATE_H
+#define KNIGHT_OF_FOO_PLAYSTATE_H
 
 #include <iostream>
 #include <vector>
@@ -51,4 +51,4 @@ private:
 
 
 
-#endif //HELLOSDL_PLAYSTATE_H
+#endif //KNIGHT_OF_FOO_PLAYSTATE_H

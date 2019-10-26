@@ -2,8 +2,8 @@
 // Created by jack on 31/05/19.
 //
 
-#ifndef HELLOSDL_MAINMENUSTATE_H
-#define HELLOSDL_MAINMENUSTATE_H
+#ifndef KNIGHT_OF_FOO_MAINMENUSTATE_H
+#define KNIGHT_OF_FOO_MAINMENUSTATE_H
 
 #include <vector>
 #include "GameState.h"
@@ -42,4 +42,4 @@ private:
 };
 
 
-#endif //HELLOSDL_MAINMENUSTATE_H
+#endif //KNIGHT_OF_FOO_MAINMENUSTATE_H

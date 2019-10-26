@@ -2,8 +2,8 @@
 // Created by jack on 05/06/19.
 //
 
-#ifndef HELLOSDL_PAUSESTATE_H
-#define HELLOSDL_PAUSESTATE_H
+#ifndef KNIGHT_OF_FOO_PAUSESTATE_H
+#define KNIGHT_OF_FOO_PAUSESTATE_H
 
 #include <vector>
 #include "GameState.h"
@@ -42,4 +42,4 @@ private:
 };
 
 
-#endif //HELLOSDL_PAUSESTATE_H
+#endif //KNIGHT_OF_FOO_PAUSESTATE_H

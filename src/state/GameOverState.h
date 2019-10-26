@@ -2,8 +2,8 @@
 // Created by jack on 20/07/19.
 //
 
-#ifndef HELLOSDL_GAMEOVERSTATE_H
-#define HELLOSDL_GAMEOVERSTATE_H
+#ifndef KNIGHT_OF_FOO_GAMEOVERSTATE_H
+#define KNIGHT_OF_FOO_GAMEOVERSTATE_H
 
 #include <vector>
 #include "GameState.h"
@@ -36,4 +36,4 @@ private:
 };
 
 
-#endif //HELLOSDL_GAMEOVERSTATE_H
+#endif //KNIGHT_OF_FOO_GAMEOVERSTATE_H

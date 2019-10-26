@@ -2,8 +2,8 @@
 // Created by jack on 14/03/19.
 //
 
-#ifndef HELLOSDL_GAME_H
-#define HELLOSDL_GAME_H
+#ifndef KNIGHT_OF_FOO_GAME_H
+#define KNIGHT_OF_FOO_GAME_H
 
 #include <vector>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -98,6 +98,6 @@ private:
 
 //typedef Game Game;
 
-#endif //HELLOSDL_GAME_H
+#endif //KNIGHT_OF_FOO_GAME_H
 
 
