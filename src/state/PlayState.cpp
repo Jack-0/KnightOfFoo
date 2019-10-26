@@ -48,7 +48,7 @@ void PlayState::update()
     {
         float x = TheInputHandler::Instance()->getMousePos().x;
         float y = TheInputHandler::Instance()->getMousePos().y;
-        m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(x,y),256,128, TheGfxManager::Instance()->getSprites("tiles"), false)));
+        ///m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(x,y),256,128, TheGfxManager::Instance()->getSprites("tiles"), false)));
     }
     // TODO ^
 }

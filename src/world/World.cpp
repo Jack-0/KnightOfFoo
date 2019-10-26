@@ -4,6 +4,7 @@
 
 #include "World.h"
 #include "../graphics/GraphicsManager.h"
+#include "../input/InputHandler.h"
 
 World::World(int w, int h)
 {
@@ -46,7 +47,9 @@ void World::generate()
 void World::update()
 {
     for(int i = 0; i < m_tiles.size(); i++)
+    {
         m_tiles[i]->update();
+    }
 }
 
 void World::render()
