@@ -21,10 +21,6 @@ void PlayState::update()
     for(int i = 0; i < m_gameObjects.size(); i++)
         m_gameObjects[i]->update();
 
-    // keep text centered
-    m_debug_text->setTopLeft();
-    m_debug_text->update();
-
     // move the map with keys TODO move to PLayer
     int speed = 10;
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::W))
@@ -46,14 +42,11 @@ void PlayState::render()
    for(int i = 0; i < m_gameObjects.size(); i++)
         m_gameObjects[i]->render();
 
-   m_debug_text->render();
 }
 
 
 bool PlayState::onEnter()
 {
-    // create text that will show debug messages
-    m_debug_text = new Text(sf::Vector2f(0, 0), "Debug:"); // maybe text should be a GameObject
 
     // variables to make world only as wide and high as the screen
     int w = Game::Instance()->getRenderWindow()->getSize().x / 256; // 256 is tile width
@@ -79,8 +72,6 @@ bool PlayState::onExit()
     m_gameObjects.clear();
 
     m_world->clean();
-    m_debug_text->clean();
-    delete(m_debug_text);
 
     std::cout << "Exiting play state\n";
     return true;

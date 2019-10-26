@@ -16,8 +16,6 @@ World::World(int w, int h)
     TheGfxManager::Instance()->addSprites("ground_tiles", "tiles", 256, 128, 4); // create sprites
 
     generate();
-
-    selectTile(2,0);
 }
 
 void World::generate()
@@ -58,7 +56,11 @@ void World::update()
 
     for(int i = m_top; i < m_bottom; i++)
         for(int j = m_left; j < m_right; j++)
+        {
             m_tiles[i][j]->update();
+            if(m_tiles[i][j]->mouseOver())
+                Game::Instance()->debugMsg(std::string(" i="+std::to_string(i)+" j="+std::to_string(j)));
+        }
 }
 
 void World::render()

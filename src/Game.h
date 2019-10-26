@@ -67,6 +67,7 @@ public:
     // returns a random number in the range low - high
     int getRandom(int low, int high);
 
+    void debugMsg(std::string msg) { m_debug_text->changeMsg("Debug: " + msg); }
 
 private:
 
@@ -98,6 +99,8 @@ private:
 
 
 
+    // create text that will show debug messages
+    Text* m_debug_text;
     int m_fps = 0;
 };
 

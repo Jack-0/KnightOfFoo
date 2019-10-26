@@ -32,6 +32,8 @@ bool Game::init(const char* title, int width, int height)
     ///m_pGameStateMachine->changeState(new MainMenuState());
     m_pGameStateMachine->changeState(new MainMenuState());
 
+    // create text that will show debug messages
+    m_debug_text = new Text(sf::Vector2f(0, 0), "Debug:"); // maybe text should be a GameObject
     // game is now running
     running = true;
     return true;
@@ -41,6 +43,7 @@ void Game::render()
 {
     m_renderWindow->clear();         // clear screen
     m_pGameStateMachine->render();   // draw pixels
+    m_debug_text->render();          // TODO debug text
     m_renderWindow->display();       // show pixels
 }
 
@@ -59,8 +62,12 @@ int Game::getRandom(int low, int high)
 
 void Game::update()
 {
+    m_debug_text->setTopLeft();
+    m_debug_text->update();
+
     m_renderWindow->setView(m_view);
     m_pGameStateMachine->update();
+
 }
 
 void Game::clean()

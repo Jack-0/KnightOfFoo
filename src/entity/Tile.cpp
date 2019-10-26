@@ -84,11 +84,13 @@ void Tile::update()
 {
     mouseIntersect();
 
+    shape.setFillColor(sf::Color::Transparent);
+
     // TODO debugging change tile colour depending on selection
     if(m_bMouseOver)
-        shape.setFillColor(sf::Color::Yellow);
-    else
-        shape.setFillColor(sf::Color::Blue);
+        shape.setFillColor(m_yellow_trans);
+    //else
+    //    shape.setFillColor(sf::Color::Blue);
 
     if(m_bTileSelected)
         shape.setFillColor(sf::Color::Red);

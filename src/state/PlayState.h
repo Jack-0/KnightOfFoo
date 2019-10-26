@@ -39,8 +39,6 @@ private:
 
     static const std::string s_playID;
 
-    // text that shows debug messages to the screen
-    Text* m_debug_text;
     // the world, contains tile map and tile information
     World* m_world;
     // a vector of enemies

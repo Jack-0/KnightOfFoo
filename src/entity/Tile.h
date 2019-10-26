@@ -19,6 +19,7 @@ public:
     virtual void clean();
 
     void select() {m_bTileSelected = true;}
+    bool mouseOver() {return m_bMouseOver; }
 
 private:
 
@@ -39,6 +40,10 @@ private:
     // booleans for tile selection
     bool m_bMouseOver = false;
     bool m_bTileSelected = false;
+
+
+    // TODO remove
+    sf::Color m_yellow_trans = sf::Color(255,255,0,100);
 };
 
 
