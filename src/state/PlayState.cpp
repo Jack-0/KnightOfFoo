@@ -26,7 +26,7 @@ void PlayState::update()
     m_debug_text->update();
 
     // move the map with keys TODO move to PLayer
-    int speed = 2;
+    int speed = 10;
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::W))
         Game::Instance()->move(0,-1 * speed);
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::S))
@@ -58,6 +58,8 @@ bool PlayState::onEnter()
     // variables to make world only as wide and high as the screen
     int w = Game::Instance()->getRenderWindow()->getSize().x / 256; // 256 is tile width
     int h = (Game::Instance()->getRenderWindow()->getSize().y / 128) * 2; // 128 is tile height (multiplied by 2 due to isometric depth)
+    w = 100;
+    h = 200;
 
     // create a new world
     m_world = new World(w, h);

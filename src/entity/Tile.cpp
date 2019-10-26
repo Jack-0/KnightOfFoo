@@ -10,6 +10,7 @@
 
 Tile::Tile(const LoaderParams *pParams) : GameObject(pParams)
 {
+
     int tile_width  = pParams->getWidth();
     int tile_height = pParams->getHeight();
     int x = pParams->getPos().x;
@@ -88,6 +89,9 @@ void Tile::update()
         shape.setFillColor(sf::Color::Yellow);
     else
         shape.setFillColor(sf::Color::Blue);
+
+    if(m_bTileSelected)
+        shape.setFillColor(sf::Color::Red);
 
     GameObject::update();
 }

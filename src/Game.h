@@ -52,6 +52,11 @@ public:
         return static_cast<sf::Vector2i>(m_view_absolute_center);
     }
 
+
+    int getScreenLeft()   { return getCenter().x - (m_screenWidth / 2); }
+    int getScreenRight()  { return getCenter().x + (m_screenWidth / 2); }
+    int getScreenTop()    { return getCenter().y - (m_screenHeight / 2); }
+    int getScreenBottom() { return getCenter().y + (m_screenHeight / 2); }
     // move the camera/view to menu position or last game position
     // todo add a shader to obscure this transition
     //void menuView();

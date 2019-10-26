@@ -16,6 +16,8 @@ World::World(int w, int h)
     TheGfxManager::Instance()->addSprites("ground_tiles", "tiles", 256, 128, 4); // create sprites
 
     generate();
+
+    selectTile(2,0);
 }
 
 void World::generate()
@@ -40,29 +42,62 @@ void World::generate()
             tile_y_pos = i * tile_h / 2;
 
             // add a new tile to vector m_tiles
-            m_tiles.push_back( new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), tile_w, tile_h,
+            m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), tile_w, tile_h,
                                     TheGfxManager::Instance()->getSprites("tiles"), false,
-                                    Game::Instance()->getRandom(0,3))));
+                                    Game::Instance()->getRandom(0,3)));
+            //m_tiles.push_back( new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), tile_w, tile_h,
+             //                       TheGfxManager::Instance()->getSprites("tiles"), false,
+             //                       Game::Instance()->getRandom(0,3))));
         }
     }
 }
 
 void World::update()
 {
-    for(int i = 0; i < m_tiles.size(); i++)
-        m_tiles[i]->update();
+    updateScreenBounds();
+
+    for(int i = m_top; i < m_bottom; i++)
+        for(int j = m_left; j < m_right; j++)
+            m_tiles[i][j]->update();
 }
 
 void World::render()
 {
-    for(int i = 0; i < m_tiles.size(); i++)
-        m_tiles[i]->render();
+    updateScreenBounds();
+
+    for(int i = m_top; i < m_bottom; i++)
+        for(int j = m_left; j < m_right; j++)
+            m_tiles[i][j]->render();
+
+}
+
+void World::updateScreenBounds()
+{
+    m_left   = Game::Instance()->getScreenLeft()   / tile_w;
+    m_right  = Game::Instance()->getScreenRight()  / tile_w;
+    m_bottom = Game::Instance()->getScreenBottom() / (tile_h / 2);
+    m_top    = Game::Instance()->getScreenTop()    / (tile_h / 2);
+
+    if(m_left < 0)
+        m_left = 0;
+    if(m_top < 0)
+        m_top = 0;
+    if(m_right > m_world_w)
+        m_right = m_world_w;
+    if(m_bottom > m_world_h)
+        m_bottom = m_world_h;
+}
+
+void World::selectTile(int i, int j)
+{
+    m_tiles[i][j]->select();
 }
 
 void World::clean()
 {
     // TODO remove used textures.... and clean
 }
+
 
 World::~World()
 {

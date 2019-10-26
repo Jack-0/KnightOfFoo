@@ -18,6 +18,8 @@ public:
     virtual void render();
     virtual void clean();
 
+    void select() {m_bTileSelected = true;}
+
 private:
 
     // variables for checking intersection
