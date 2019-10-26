@@ -20,10 +20,10 @@ public:
     void render();
     void clean();
 
-    void center();// {m_pos = Game::Instance()->getCenter(); }
+    void setTopLeft();// {m_pos = Game::Instance()->getCenter(); }
     void scale();
 
-    void changeMsg(std::string newMsg) {m_msg = newMsg;}
+    void changeMsg(std::string newMsg);
 
     int getWidth() { return m_text.getLocalBounds().width; }
     int getHeight() { return m_text.getLocalBounds().height; }

@@ -62,8 +62,6 @@ public:
     // returns a random number in the range low - high
     int getRandom(int low, int high);
 
-    float getCurrentZoom() { return current_zoom; }
-
 
 private:
 
@@ -71,15 +69,8 @@ private:
     //int m_last_view_x;
     //int m_last_view_y;
 
-    // used to find the absolute center position
+    // used to find the absolute setTopLeft position
     sf::Vector2f m_view_absolute_center;
-
-    // zoom variables
-    //float m_zoom_value = 1;
-    float zoom_val = 1;
-    float current_zoom  = 1 ;
-    float last_zoom;
-
 
     Game() {}
     static Game* s_pInstance;

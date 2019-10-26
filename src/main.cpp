@@ -4,7 +4,7 @@
 
 int main()
 {
-    Game::Instance()->init("SFML",900,900);
+    Game::Instance()->init("SFML", 1200, 900);
 
     while (Game::Instance()->isRunning())
     {

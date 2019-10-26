@@ -18,24 +18,25 @@ public:
     virtual void render();
     virtual void clean();
 
-
-
-    //void setSelected(bool b) {selected = b;}
-    void mouseIntersect();
-
 private:
 
-    sf::ConvexShape shape;
-
+    // variables for checking intersection
     sf::Vector2f pos_a;
     sf::Vector2f pos_b;
     sf::Vector2f pos_c;
     sf::Vector2f pos_d;
+    // used for debugging
+    sf::ConvexShape shape;
 
-    bool isLeft(sf::Vector2f a, sf::Vector2f b, sf::Vector2f c);
+    // check for mouse intersection on tile
+    void mouseIntersect();
+    // static methods to check if a point is on the left or right side of a line used for intersection checks
+    static bool pointIsLeft(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2f check);
+    static bool pointIsRight(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2f check);
 
-    bool selected = false;
-
+    // booleans for tile selection
+    bool m_bMouseOver = false;
+    bool m_bTileSelected = false;
 };
 
 

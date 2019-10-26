@@ -13,8 +13,8 @@ Button::Button(const LoaderParams *pParams, int callbackID) : GameObject(pParams
 
 void Button::update()
 {
-    int mx = TheInputHandler::Instance()->getMousePos().x;// + Game::Instance()->getAbsCenter().x;
-    int my = TheInputHandler::Instance()->getMousePos().y;// + Game::Instance()->getAbsCenter().y;
+    int mx = TheInputHandler::Instance()->getAbsMousePos().x;// + Game::Instance()->getAbsCenter().x;
+    int my = TheInputHandler::Instance()->getAbsMousePos().y;// + Game::Instance()->getAbsCenter().y;
 
     // if mouse pos intersects button sprite
     if(mx < (m_pos.x + m_width)

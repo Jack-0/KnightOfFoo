@@ -38,9 +38,8 @@ bool InputHandler::isMouseKeyDown(sf::Mouse::Button btn)
 
 }
 
-sf::Vector2i InputHandler::getMousePos()
+sf::Vector2i InputHandler::getAbsMousePos()
 {
-    // get mouse position relative to the render window
     return sf::Vector2i(sf::Mouse::getPosition(*Game::Instance()->getRenderWindow())) + Game::Instance()->getAbsCenter();
 }
 

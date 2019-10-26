@@ -15,8 +15,14 @@ Text::Text(sf::Vector2f position, std::string message, sf::Color colour, int fon
     m_text.setString(m_msg);
     m_text.setCharacterSize(m_size);
     m_text.setFillColor(colour);
+    m_text.setPosition(m_pos);
 }
 
+void Text::changeMsg(std::string newMsg)
+{
+    m_msg = newMsg;
+    m_text.setString(m_msg);
+}
 void Text::update()
 {
     m_text.setPosition(m_pos);
@@ -33,13 +39,14 @@ void Text::clean()
 }
 
 
-void Text::center()
+void Text::setTopLeft()
 {
-    m_pos = Game::Instance()->getCenter();
+    m_pos = Game::Instance()->getCenter()- sf::Vector2f(Game::Instance()->getRenderWindow()->getSize().x / 2,
+            Game::Instance()->getRenderWindow()->getSize().y / 2);
 }
 
 void Text::scale()
 {
-    float zoom = Game::Instance()->getCurrentZoom();
-    m_text.setScale(sf::Vector2f(zoom,zoom));
+    //float zoom = Game::Instance()->getCurrentZoom();
+    //m_text.setScale(sf::Vector2f(zoom,zoom));
 }

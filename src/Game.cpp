@@ -16,32 +16,16 @@ bool Game::init(const char* title, int width, int height)
     m_screenHeight = height;
 
     // create window
-
     m_renderWindow = new sf::RenderWindow(sf::VideoMode(m_screenWidth, m_screenHeight), title);
-
-    // center window on screen
+    // center window on monitor
     auto desktop = sf::VideoMode::getDesktopMode();
     m_renderWindow->setPosition(sf::Vector2i(desktop.width/2 - m_renderWindow->getSize().x/2, desktop.height/2 - m_renderWindow->getSize().y/2));
-
+    // configure view
     m_view = m_renderWindow->getDefaultView();
     m_view.setSize(width, height);
-
-    //m_view_absolute_center = m_view.getCenter();
     m_view_absolute_center = sf::Vector2f(0,0);
-
     m_renderWindow->setView(m_view);
-
     m_renderWindow->setFramerateLimit(60); // TODO switch out for better game loop (fixed time-step)
-
-    /*
-    GameObjectFactory::Instance()->registerType("MenuButton", new ButtonCreator());
-    GameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
-    GameObjectFactory::Instance()->registerType("Enemy", new EnemyCreator());
-    GameObjectFactory::Instance()->registerType("AnimatedGraphic", new AnimatedGraphicCreator());
-
-    TheSoundManager::Instance()->load("../res/sound/bang.wav", "bang");
-    TheSoundManager::Instance()->load("../res/sound/beep.wav", "beep");
-     */
 
     // Game state
     m_pGameStateMachine = new GameStateMachine();
@@ -55,11 +39,9 @@ bool Game::init(const char* title, int width, int height)
 
 void Game::render()
 {
-    /// render start
     m_renderWindow->clear();         // clear screen
     m_pGameStateMachine->render();   // draw pixels
     m_renderWindow->display();       // show pixels
-    /// render end
 }
 
 /**
@@ -98,35 +80,9 @@ void Game::handleEvents()
     TheInputHandler::Instance()->update();
 }
 
-void Game::zoom(float x)
-{
-    // TODO zoom is a mess as it is called multiple times per frame if a key is pressed the issue is state and keypress
-    //m_view.setRotation(x);
-    //m_view.setCenter(m_renderWindow->getSize().x / 2, m_renderWindow->getSize().y / 2);
-    //m_view_absolute_center = m_view_absolute_center * x;
-
-    current_zoom *= x;
-    // zoom must keep state; zoom must be reset upon menu entry
-    m_view.zoom(x);
-}
-
 void Game::move(float x, float y)
 {
     m_view_absolute_center.x += x;
     m_view_absolute_center.y += y;
-    //m_view.setCenter(m_view_absolute_center.x + m_view.getCenter().x, m_view_absolute_center.y + m_view.getCenter().y);
     m_view.move(x, y);
 }
-
-/*
-void Game::menuView()
-{
-    m_last_view_x = m_view.getCenter().x; m_last_view_y = m_view.getCenter().y;
-    m_view.setCenter(m_renderWindow->getSize().x/2, m_renderWindow->getSize().y/2);
-}
-
-void Game::gameView()
-{ 
-    m_view.setCenter(m_last_view_x, m_last_view_y); 
-}
-*/

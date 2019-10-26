@@ -26,7 +26,7 @@ public:
     bool isKeyDown(sf::Keyboard::Key key);
 
     // query mouse input
-    sf::Vector2i getMousePos();
+    sf::Vector2i getAbsMousePos();
     bool isMouseKeyDown(sf::Mouse::Button btn);
 
 private:
