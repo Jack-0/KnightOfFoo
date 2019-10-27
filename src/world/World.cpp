@@ -43,9 +43,6 @@ void World::generate()
             m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), tile_w, tile_h,
                                     TheGfxManager::Instance()->getSprites("tiles"), false,
                                     Game::Instance()->getRandom(0,3)));
-            //m_tiles.push_back( new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), tile_w, tile_h,
-             //                       TheGfxManager::Instance()->getSprites("tiles"), false,
-             //                       Game::Instance()->getRandom(0,3))));
         }
     }
 }
@@ -65,21 +62,30 @@ void World::update()
 
 void World::render()
 {
-    updateScreenBounds();
-
     for(int i = m_top; i < m_bottom; i++)
         for(int j = m_left; j < m_right; j++)
             m_tiles[i][j]->render();
-
 }
 
+/**
+ * Ensure that only tiles on the screen are within the screen bounds.
+ * This is done for performance.
+ */
 void World::updateScreenBounds()
 {
+    // calculate what tiles are on the screen
     m_left   = Game::Instance()->getScreenLeft()   / tile_w;
     m_right  = Game::Instance()->getScreenRight()  / tile_w;
     m_bottom = Game::Instance()->getScreenBottom() / (tile_h / 2);
     m_top    = Game::Instance()->getScreenTop()    / (tile_h / 2);
 
+    // offset each bound by +/-1 to... this renders tiles that are half inside the screen bounds
+    m_left--;
+    m_right++;
+    m_top--;
+    m_bottom++;
+
+    // check that the tile bound is not invalid, due to scrolling the screen further than the tile map
     if(m_left < 0)
         m_left = 0;
     if(m_top < 0)

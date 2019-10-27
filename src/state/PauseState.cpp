@@ -40,8 +40,6 @@ void PauseState::render()
 
 bool PauseState::onEnter()
 {
-    //Game::Instance()->menuView(); // TODO this is a bit of a hack
-
     m_callbacks.push_back(0); // to start from 1...
     m_callbacks.push_back(s_resumePlay);
     m_callbacks.push_back(s_pauseToMain);

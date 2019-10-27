@@ -62,6 +62,8 @@ int Game::getRandom(int low, int high)
 
 void Game::update()
 {
+    updateCamera();
+
     m_debug_text->setTopLeft();
     m_debug_text->update();
 
@@ -92,4 +94,30 @@ void Game::move(float x, float y)
     m_view_absolute_center.x += x;
     m_view_absolute_center.y += y;
     m_view.move(x, y);
+}
+
+void Game::updateCamera()
+{
+    lastZoomVal = actZoomVal;
+    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Key::Up))
+    {
+        actZoomVal--;
+        zoom(0.5f); //was 0.9f
+    }
+    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Key::Down))
+    {
+        actZoomVal++;
+        zoom(2.0f); //was 1.1f
+    }
+}
+
+void Game::zoom(float amount)
+{
+     if(actZoomVal >= MAX_ZOOM || actZoomVal <= MIN_ZOOM )
+        {
+            actZoomVal = lastZoomVal;
+            return;
+        }
+        zoomVal*=amount;
+        m_view.zoom(amount);
 }

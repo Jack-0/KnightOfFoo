@@ -36,11 +36,10 @@ void PlayState::render()
 
 bool PlayState::onEnter()
 {
-
     // variables to make world only as wide and high as the screen
     int w = Game::Instance()->getRenderWindow()->getSize().x / 256; // 256 is tile width
     int h = (Game::Instance()->getRenderWindow()->getSize().y / 128) * 2; // 128 is tile height (multiplied by 2 due to isometric depth)
-    w = 100;
+    w = 50;
     h = 200;
 
     // create a new world
