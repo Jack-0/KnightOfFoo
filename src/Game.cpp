@@ -64,12 +64,13 @@ void Game::update()
 {
     updateCamera();
 
-    m_debug_text->setTopLeft();
+    // update debug message
+    m_debug_text->setTopLeftAndScale();
     m_debug_text->update();
 
+    // update game states and set active window
     m_renderWindow->setView(m_view);
     m_pGameStateMachine->update();
-
 }
 
 void Game::clean()
@@ -98,26 +99,26 @@ void Game::move(float x, float y)
 
 void Game::updateCamera()
 {
-    lastZoomVal = actZoomVal;
-    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Key::Up))
-    {
-        actZoomVal--;
-        zoom(0.5f); //was 0.9f
+    // set zoom_last
+    zoom_last = zoom_current;
+    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Key::Up)){
+        zoom_current--;
+        zoom(0.5f); // half to zoom in
     }
-    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Key::Down))
-    {
-        actZoomVal++;
-        zoom(2.0f); //was 1.1f
+    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Key::Down)){
+        zoom_current++;
+        zoom(2.0f); // double to zoom out
     }
 }
 
 void Game::zoom(float amount)
 {
-     if(actZoomVal >= MAX_ZOOM || actZoomVal <= MIN_ZOOM )
-        {
-            actZoomVal = lastZoomVal;
+    // if zoom is invalid zoom will revert to last zoom value, and we return
+    if(zoom_current >= MAX_ZOOM || zoom_current <= MIN_ZOOM ){
+            zoom_current = zoom_last;
             return;
-        }
-        zoomVal*=amount;
-        m_view.zoom(amount);
+    }
+    // set zoom value to the current zoom amount, then zoom
+    zoom_value *= amount;
+    m_view.zoom(amount);
 }
