@@ -38,9 +38,9 @@ bool InputHandler::isMouseKeyDown(sf::Mouse::Button btn)
 
 }
 
-sf::Vector2i InputHandler::getAbsMousePos()
+sf::Vector2f InputHandler::getAbsMousePos()
 {
-    return sf::Vector2i(sf::Mouse::getPosition(*Game::Instance()->getRenderWindow())) + Game::Instance()->getAbsCenter();
+    return sf::Vector2f(sf::Mouse::getPosition(*Game::Instance()->getRenderWindow())) + (Game::Instance()->getAbsCenter());
 }
 
 void InputHandler::clean() {}

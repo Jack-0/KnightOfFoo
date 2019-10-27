@@ -41,7 +41,7 @@ Tile::Tile(const LoaderParams *pParams) : GameObject(pParams)
 void Tile::mouseIntersect()
 {
     // get mouse position and cast to float
-    sf::Vector2f mouse = static_cast<sf::Vector2f>(TheInputHandler::Instance()->getAbsMousePos());
+    sf::Vector2f mouse = sf::Vector2f(TheInputHandler::Instance()->getAbsMousePos());
 
     // reset mouse over
     m_bMouseOver = false;
