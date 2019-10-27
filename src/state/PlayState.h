@@ -13,6 +13,7 @@
 #include "GameOverState.h"
 #include "../entity/Text.h"
 #include "../world/World.h"
+#include "../entity/mob/Player.h"
 
 #include <SFML/Graphics/CircleShape.hpp>
 
@@ -41,6 +42,9 @@ private:
 
     // the world, contains tile map and tile information
     World* m_world;
+    // pointer to player
+    Player *m_player;
+
     // a vector of enemies
     std::vector<GameObject*> m_gameObjects;
 
