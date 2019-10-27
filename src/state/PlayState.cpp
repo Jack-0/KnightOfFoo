@@ -57,6 +57,29 @@ bool PlayState::onEnter()
     // create a new world
     m_world = new World(w, h);
 
+    TheGfxManager::Instance()->addTexture("../res/player.png", "player_sheet");
+    TheGfxManager::Instance()->addSprites("player_sheet","player_sprites",25,42,16);
+    // TODO TEST player up sprites
+    std::vector<sf::Sprite> player_up = TheGfxManager::Instance()->getSprites("player_sprites",0,3);
+    for(int i = 0; i < player_up.size(); i++)
+        player_up[i].setScale(4,4);
+    m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(150,100),25,42,player_up,true)));
+    // TODO TEST player up sprites
+    std::vector<sf::Sprite> player_down = TheGfxManager::Instance()->getSprites("player_sprites",4,7);
+    for(int i = 0; i < player_down.size(); i++)
+        player_down[i].setScale(4,4);
+    m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(150,300),25,42,player_down,true)));
+    // TODO TEST player up sprites
+    std::vector<sf::Sprite> player_left = TheGfxManager::Instance()->getSprites("player_sprites",8,11);
+    for(int i = 0; i < player_left.size(); i++)
+        player_left[i].setScale(4,4);
+    m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(150,500),25,42,player_left,true)));
+    // TODO TEST player up sprites
+    std::vector<sf::Sprite> player_right = TheGfxManager::Instance()->getSprites("player_sprites",12,15);
+    for(int i = 0; i < player_right.size(); i++)
+        player_right[i].setScale(4,4);
+    m_gameObjects.push_back(new GameObject(new LoaderParams(sf::Vector2f(150,700),25,42,player_right,true)));
+
     std::cout << "Entering play state\n";
     return true;
 }
