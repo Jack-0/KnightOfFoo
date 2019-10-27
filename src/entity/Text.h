@@ -20,7 +20,7 @@ public:
     void render();
     void clean();
 
-    void setTopLeft();// {m_pos = Game::Instance()->getCenter(); }
+    void setTopLeftAndScale();// {m_pos = Game::Instance()->getCenter(); }
     void scale();
 
     void changeMsg(std::string newMsg);

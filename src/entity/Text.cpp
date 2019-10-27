@@ -39,14 +39,16 @@ void Text::clean()
 }
 
 
-void Text::setTopLeft()
+void Text::setTopLeftAndScale()
 {
-    m_pos = Game::Instance()->getCenter()- sf::Vector2f(Game::Instance()->getRenderWindow()->getSize().x / 2,
-            Game::Instance()->getRenderWindow()->getSize().y / 2);
+    scale();
+    m_pos.x = Game::Instance()->getScreenLeft();
+    m_pos.y = Game::Instance()->getScreenTop();
 }
+
 
 void Text::scale()
 {
-    //float zoom = Game::Instance()->getCurrentZoom();
-    //m_text.setScale(sf::Vector2f(zoom,zoom));
+    float zoom = Game::Instance()->getZoomVal();
+    m_text.setScale(sf::Vector2f(zoom,zoom));
 }
