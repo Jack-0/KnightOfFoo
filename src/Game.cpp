@@ -97,6 +97,16 @@ void Game::move(float x, float y)
     m_view.move(x, y);
 }
 
+void Game::focusOnPlayer(Player *p)
+{
+    // set pos
+    ///m_view.setCenter(0,0);
+    m_view_absolute_center.x = p->getX();
+    m_view_absolute_center.y = p->getY();
+    m_view.setCenter(p->getX(), p->getY());
+    ///m_view.move(m_view_absolute_center);
+}
+
 void Game::updateCamera()
 {
     // set zoom_last

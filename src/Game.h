@@ -38,6 +38,8 @@ public:
     bool isRunning() { return running; }
     void quit();
 
+    void focusOnPlayer(Player* p);
+
     //void zoom(float x);
     void move(float x, float y);
 
@@ -51,6 +53,7 @@ public:
     sf::Vector2f getAbsCenter() { return m_view_absolute_center; }
 
     // get screen bounds (factoring in zoom and absolute position)
+
     int getScreenLeft()   { return m_renderWindow->mapCoordsToPixel(m_view.getCenter()).x - (m_screenWidth / 2) * zoom_value + m_view_absolute_center.x; }
     int getScreenRight()  { return m_renderWindow->mapCoordsToPixel(m_view.getCenter()).x + (m_screenWidth / 2) * zoom_value + m_view_absolute_center.x;  }
     int getScreenTop()    { return m_renderWindow->mapCoordsToPixel(m_view.getCenter()).y - (m_screenHeight / 2) * zoom_value + m_view_absolute_center.y; }
