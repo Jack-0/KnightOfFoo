@@ -12,7 +12,7 @@
 class Tile : public GameObject
 {
 public:
-    Tile(const LoaderParams* pParams);
+    Tile(const LoaderParams* pParams, int typeType);
 
     virtual void update();
     virtual void render();
@@ -20,6 +20,8 @@ public:
 
     void select() {m_bTileSelected = true;}
     bool mouseOver() {return m_bMouseOver; }
+
+
 
 private:
 
@@ -41,6 +43,7 @@ private:
     bool m_bMouseOver = false;
     bool m_bTileSelected = false;
 
+    int m_type = 0;
 
     // TODO remove
     sf::Color m_yellow_trans = sf::Color(255,255,0,100);

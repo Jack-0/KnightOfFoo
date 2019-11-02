@@ -13,7 +13,7 @@ class World
 {
 public:
 
-    World(int w, int h);
+    World();
 
     const int tile_w = 256; // pixel width of single tile
     const int tile_h = 128; // pixel height of single tile
@@ -38,8 +38,14 @@ private:
     int m_bottom;
     int m_top;
 
+    enum TILE_TYPES{
+        WATER = 0,
+        SAND = 1,
+        GRASS = 2,
+        GRASS_DARK = 3
+    };
+
     std::map<int, std::map<int, Tile*>> m_tiles;
-    //std::vector<Tile*> m_tiles;
 
 };
 

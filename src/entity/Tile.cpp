@@ -8,8 +8,9 @@
 #include "../Game.h"
 #include "../graphics/GraphicsManager.h"
 
-Tile::Tile(const LoaderParams *pParams) : GameObject(pParams)
+Tile::Tile(const LoaderParams *pParams, int tileType) : GameObject(pParams)
 {
+    m_type = tileType;
 
     int tile_width  = pParams->getWidth();
     int tile_height = pParams->getHeight();
@@ -82,6 +83,8 @@ bool Tile::pointIsRight(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2f c
 
 void Tile::update()
 {
+    m_frame = m_type;
+
     mouseIntersect();
 
     shape.setFillColor(sf::Color::Transparent);

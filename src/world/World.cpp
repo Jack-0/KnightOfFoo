@@ -6,10 +6,12 @@
 #include "../graphics/GraphicsManager.h"
 #include "../input/InputHandler.h"
 
-World::World(int w, int h)
+class Instance;
+
+World::World()
 {
-    m_world_w = w;
-    m_world_h = h;
+    m_world_w = 16;
+    m_world_h = 32;
 
     // load texture and create sprites from it
     TheGfxManager::Instance()->addTexture("../res/test.png", "ground_tiles");    // load texture
@@ -39,10 +41,27 @@ void World::generate()
             tile_x_pos = ( j * tile_w) + x_offset;
             tile_y_pos = i * tile_h / 2;
 
-            // add a new tile to vector m_tiles
-            m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), tile_w, tile_h,
-                                    TheGfxManager::Instance()->getSprites("tiles"), false,
-                                    Game::Instance()->getRandom(0,3)));
+            if(j == 0 || i == 0 || i == 1 || j == m_world_w - 1 || i == m_world_h - 1 || i == m_world_h - 2)
+            {
+                // outer tiles are water
+                m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), tile_w, tile_h,
+                                                           TheGfxManager::Instance()->getSprites("tiles"), false,
+                                                           0), WATER);
+            }
+            else if(j == 1 || i == 2 || i == 3 || j == m_world_w-2 || i == m_world_h - 3 || i == m_world_h - 4)
+            {
+                // penultimate to outer are sand
+                m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), tile_w, tile_h,
+                                                           TheGfxManager::Instance()->getSprites("tiles"), false,
+                                                           0), SAND);
+            }
+            else
+            {
+                // all other tiles are grass or grass dark
+                m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), tile_w, tile_h,
+                                                           TheGfxManager::Instance()->getSprites("tiles"), false,
+                                                           0), Game::Instance()->getRandom(2,3));
+            }
         }
     }
 }

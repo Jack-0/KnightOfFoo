@@ -36,14 +36,8 @@ void PlayState::render()
 
 bool PlayState::onEnter()
 {
-    // variables to make world only as wide and high as the screen
-    int w = Game::Instance()->getRenderWindow()->getSize().x / 256; // 256 is tile width
-    int h = (Game::Instance()->getRenderWindow()->getSize().y / 128) * 2; // 128 is tile height (multiplied by 2 due to isometric depth)
-    w = 50;
-    h = 200;
-
     // create a new world
-    m_world = new World(w, h);
+    m_world = new World();
 
     // add the player
     TheGfxManager::Instance()->addTexture("../res/player.png", "player_sheet");
