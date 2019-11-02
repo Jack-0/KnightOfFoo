@@ -47,8 +47,8 @@ bool PlayState::onEnter()
 
     // add the player
     TheGfxManager::Instance()->addTexture("../res/player.png", "player_sheet");
-    TheGfxManager::Instance()->addSprites("player_sheet","player_sprites",25,42,16);
-    m_player = new Player(new LoaderParams(sf::Vector2f(0,0),25,42,TheGfxManager::Instance()->getSprites("player_sprites")));
+    TheGfxManager::Instance()->addSprites("player_sheet","player_sprites",25,46,16);
+    m_player = new Player(new LoaderParams(sf::Vector2f(0,0),25,46,TheGfxManager::Instance()->getSprites("player_sprites")));
     m_gameObjects.push_back(m_player);
 
 
