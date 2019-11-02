@@ -33,10 +33,10 @@ private:
     ~World();
 
     void updateScreenBounds();
-    int m_left;
-    int m_right;
-    int m_bottom;
-    int m_top;
+    int m_left = 0;
+    int m_right = 0;
+    int m_bottom = 0;
+    int m_top = 0;
 
     enum TILE_TYPES{
         WATER = 0,
