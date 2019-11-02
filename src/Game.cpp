@@ -23,13 +23,11 @@ bool Game::init(const char* title, int width, int height)
     // configure view
     m_view = m_renderWindow->getDefaultView();
     m_view.setSize(width, height);
-    m_view_absolute_center = sf::Vector2f(0,0);
     m_renderWindow->setView(m_view);
     m_renderWindow->setFramerateLimit(60); // TODO switch out for better game loop (fixed time-step)
 
     // Game state
     m_pGameStateMachine = new GameStateMachine();
-    ///m_pGameStateMachine->changeState(new MainMenuState());
     m_pGameStateMachine->changeState(new MainMenuState());
 
     // create text that will show debug messages
@@ -90,21 +88,10 @@ void Game::handleEvents()
     TheInputHandler::Instance()->update();
 }
 
-void Game::move(float x, float y)
-{
-    m_view_absolute_center.x += x;
-    m_view_absolute_center.y += y;
-    m_view.move(x, y);
-}
-
 void Game::focusOnPlayer(Player *p)
 {
     // set pos
-    ///m_view.setCenter(0,0);
-    m_view_absolute_center.x = p->getX();
-    m_view_absolute_center.y = p->getY();
     m_view.setCenter(p->getX(), p->getY());
-    ///m_view.move(m_view_absolute_center);
 }
 
 void Game::updateCamera()

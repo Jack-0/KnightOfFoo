@@ -24,40 +24,44 @@ void Player::handleInput()
     int speed = 10;
     m_state = STATIONARY;
 
-    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::E))
+    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::LShift))
         speed = 30;
     else
-        speed = 10;
+        speed = 4;
 
     // get keyboard input and map that to state
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::W)){
         m_sprite_sheet_ref = 0; // 0 is the index of the walking up sprite
         m_state = UP;
-        Game::Instance()->move(0,-1 * speed); // move the game camera... TODO ?should camera point to player pos?
+        //Game::Instance()->move(0,-1 * speed); // move the game camera... TODO ?should camera point to player pos?
+        m_pos.y -= speed;
     }
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::S)){
         m_sprite_sheet_ref = 4; // 4 is the index of the walking down sprite
         m_state = DOWN;
-        Game::Instance()->move(0,1 * speed);
+        //Game::Instance()->move(0,1 * speed);
+        m_pos.y += speed;
     }
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::A)){
         m_sprite_sheet_ref = 8; // 8 is the index of the walking left sprite
         m_state = LEFT;
-        Game::Instance()->move(-1 * speed,0);
+        //Game::Instance()->move(-1 * speed,0);
+        m_pos.x -= speed;
     }
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::D)){
         m_sprite_sheet_ref = 12; // 12 is the index of the walking right sprite
         m_state = RIGHT;
-        Game::Instance()->move(1 * speed,0);
+        //Game::Instance()->move(1 * speed,0);
+        m_pos.x += speed;
     }
 }
 
 void Player::update()
 {
     // center the player on screen
-    m_pos = Game::Instance()->getCenter();
-    m_pos.x = m_pos.x - m_width / 2;
-    m_pos.y = m_pos.y - m_height / 2;
+    //m_pos = Game::Instance()->getCenter();
+    //m_pos.x = m_pos.x - m_width / 2;
+    //m_pos.y = m_pos.y - m_height / 2;
 
     // change state dependent on input
     handleInput();

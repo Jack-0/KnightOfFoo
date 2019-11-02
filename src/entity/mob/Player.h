@@ -18,6 +18,9 @@ public:
     virtual void render();
     virtual void clean();
 
+    int getX() { return m_pos.x; }
+    int getY() { return m_pos.y; }
+
 private:
 
     int m_state = 0;

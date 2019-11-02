@@ -38,26 +38,23 @@ public:
     bool isRunning() { return running; }
     void quit();
 
+    // focus view on the player
     void focusOnPlayer(Player* p);
-
-    //void zoom(float x);
-    void move(float x, float y);
 
     // get pointer to render window
     sf::RenderWindow* getRenderWindow() { return m_renderWindow; }
+
     // get pointer to game state machine
     GameStateMachine* getStateMachine() { return m_pGameStateMachine; }
+
     // get value of screen center
     sf::Vector2f getCenter() { return m_view.getCenter(); }
-    // get value of screen center plus offset
-    sf::Vector2f getAbsCenter() { return m_view_absolute_center; }
 
-    // get screen bounds (factoring in zoom and absolute position)
-
-    int getScreenLeft()   { return m_renderWindow->mapCoordsToPixel(m_view.getCenter()).x - (m_screenWidth / 2) * zoom_value + m_view_absolute_center.x; }
-    int getScreenRight()  { return m_renderWindow->mapCoordsToPixel(m_view.getCenter()).x + (m_screenWidth / 2) * zoom_value + m_view_absolute_center.x;  }
-    int getScreenTop()    { return m_renderWindow->mapCoordsToPixel(m_view.getCenter()).y - (m_screenHeight / 2) * zoom_value + m_view_absolute_center.y; }
-    int getScreenBottom() { return m_renderWindow->mapCoordsToPixel(m_view.getCenter()).y + (m_screenHeight / 2) * zoom_value + m_view_absolute_center.y; }
+    /// get screen bounds
+    int getScreenLeft()   { return m_view.getCenter().x - (m_screenWidth / 2) * zoom_value; }
+    int getScreenRight()  { return m_view.getCenter().x + (m_screenWidth / 2) * zoom_value; }
+    int getScreenTop()    { return m_view.getCenter().y - (m_screenHeight / 2) * zoom_value; }
+    int getScreenBottom() { return m_view.getCenter().y + (m_screenHeight / 2) * zoom_value; }
 
     // get the scalar for camera zoom
     float getZoomVal() { return zoom_value; }
@@ -71,7 +68,7 @@ public:
 private:
 
     // used to find the absolute setTopLeftAndScale position
-    sf::Vector2f m_view_absolute_center;
+    //sf::Vector2f m_view_absolute_center;
 
     Game() {}
     static Game* s_pInstance;
