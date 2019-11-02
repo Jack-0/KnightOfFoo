@@ -24,6 +24,11 @@ void Player::handleInput()
     int speed = 10;
     m_state = STATIONARY;
 
+    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::E))
+        speed = 30;
+    else
+        speed = 10;
+
     // get keyboard input and map that to state
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::W)){
         m_sprite_sheet_ref = 0; // 0 is the index of the walking up sprite
