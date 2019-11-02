@@ -22,26 +22,19 @@ void Button::update()
        && my < (m_pos.y + m_height)
        && my > m_pos.y )
     {
-
-
+        // left click inside button
         if(TheInputHandler::Instance()->isMouseKeyDown(sf::Mouse::Button::Left)) {
             m_frame = MOUSE_CLICK;
             m_callback();
         }
-        else
+        else{
+            // mouse hovering over button
             m_frame = MOUSE_OVER;
+        }
     }
-    else
+    else{
+        // mouse not over button
         m_frame = MOUSE_OUT;
-
-    //std::cout << "mouse inside\n";
-
-    // TODO debug
-    if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Key::E))
-    {
-        std::cout << "[MOUSE X=" << mx << " Y=" << my << "]"
-                     "\n\t[LEFT_BTN  X=" << m_pos.x << " Y=" << m_pos.y <<"]"
-                     "\n\t[RIGHT_BTN X=" << m_pos.x + m_width << " Y=" << m_pos.y + m_height <<"]\n";
     }
 
     GameObject::update();
