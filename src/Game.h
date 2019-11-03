@@ -93,12 +93,12 @@ private:
     float zoom_current = 0;
     float zoom_value = 1;
     float zoom_last;
-    const int MAX_ZOOM = 3;
+    const int MAX_ZOOM = 4;
     const int MIN_ZOOM = -2;
+
     // camera methods
     void updateCamera();
     void zoom(float amount);
-
 };
 
 //typedef Game Game;

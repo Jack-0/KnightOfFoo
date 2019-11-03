@@ -10,18 +10,86 @@ class Instance;
 
 World::World()
 {
-    m_world_w = 16;
-    m_world_h = 32;
-
     // load texture and create sprites from it
-    TheGfxManager::Instance()->addTexture("../res/test.png", "ground_tiles");    // load texture
-    TheGfxManager::Instance()->addSprites("ground_tiles", "tiles", 256, 128, 4); // create sprites
+    TheGfxManager::Instance()->addTexture("../res/ground_tiles.png", "ground_tiles");    // load texture
+    TheGfxManager::Instance()->addSprites("ground_tiles", "tiles", 256, 128, 4);         // create tile sprites
+    //TheGfxManager::Instance()->addSprites("ground_tiles", "half_tiles", 256/2, 128, 4*2);     // create half tile sprites
 
     generate();
 }
 
+void World::generateStep()
+{
+    for(int i = 0; i < m_world_h; i++)
+        for(int j = 0; j < m_world_w; j++)
+            last_cells[i][j] = cells[i][j];
+
+    //Loop over each row and column of the map
+    for(int x = 0; x <= m_world_h; x++){
+        for(int y = 0; y <= m_world_w; y++){
+            int nbs = countNeighbours(x, y);
+            // new value is based on our simulation rules
+            // if a cell is alive but has too few neighbours, kill it.
+            if(last_cells[x][y]){
+                if(nbs < m_death_limit){
+                    cells[x][y] = false;
+                }
+                else{
+                    cells[x][y] = true;
+                }
+            }
+            // if the cell is dead now, check if it has the right number of neighbours to be 'born'
+            else{
+                if(nbs > m_birth_limit){
+                    cells[x][y] = true;
+                }
+                else{
+                    cells[x][y] = false;
+                }
+            }
+        }
+    }
+}
+
+int World::countNeighbours(int x, int y)
+{
+    int count = 0;
+    for(int i =- 1; i < 2; i++){
+        for(int j =- 1; j < 2; j++){
+            int neighbour_x = x+i;
+            int neighbour_y = y+j;
+            // middle point
+            if(i == 0 && j == 0){
+                // do nothing middle point
+            }
+            // index is off the edge of the map (counts as alive)
+            else if(neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= m_world_h || neighbour_y >= m_world_w){
+                count = count + 1;
+            }
+            // check if neighbour is alive
+            else if(cells[neighbour_x][neighbour_y]){
+                count = count + 1;
+            }
+        }
+    }
+    return count;
+}
+
 void World::generate()
 {
+    /// init cells with a chance to start alive
+    for(int i = 0; i <= m_world_h; i++)
+        for(int j = 0; j <= m_world_w; j++)
+            if(Game::Instance()->getRandom(0,10) < m_chance_to_start_alive)
+                cells[i][j] = true;
+            else
+                cells[i][j] = false;
+
+    /// generate map using cellular automata
+    for(int i=0; i < m_steps; i++)
+        generateStep();
+
+    /// create tiles
     int x_offset   = 0; // due to the nature of isometric tiles even rows are offset
     int tile_x_pos = 0;
     int tile_y_pos = 0;
@@ -41,26 +109,16 @@ void World::generate()
             tile_x_pos = ( j * tile_w) + x_offset;
             tile_y_pos = i * tile_h / 2;
 
-            if(j == 0 || i == 0 || i == 1 || j == m_world_w - 1 || i == m_world_h - 1 || i == m_world_h - 2)
-            {
-                // outer tiles are water
+            if(cells[i][j]){
                 m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), tile_w, tile_h,
                                                            TheGfxManager::Instance()->getSprites("tiles"), false,
-                                                           0), WATER);
+                                                           0), VOID);
             }
-            else if(j == 1 || i == 2 || i == 3 || j == m_world_w-2 || i == m_world_h - 3 || i == m_world_h - 4)
-            {
-                // penultimate to outer are sand
+            else{
+                // all other tiles are x
                 m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), tile_w, tile_h,
                                                            TheGfxManager::Instance()->getSprites("tiles"), false,
-                                                           0), SAND);
-            }
-            else
-            {
-                // all other tiles are grass or grass dark
-                m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), tile_w, tile_h,
-                                                           TheGfxManager::Instance()->getSprites("tiles"), false,
-                                                           0), Game::Instance()->getRandom(2,3));
+                                                           0), Game::Instance()->getRandom(GRASS, WATER));
             }
         }
     }

@@ -27,7 +27,7 @@ void Player::handleInput()
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::LShift))
         speed = 30;
     else
-        speed = 4;
+        speed = 6;
 
     // get keyboard input and map that to state
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::W)){

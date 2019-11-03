@@ -83,7 +83,6 @@ bool Tile::pointIsRight(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2f c
 
 void Tile::update()
 {
-    m_frame = m_type;
 
     mouseIntersect();
 
@@ -91,20 +90,32 @@ void Tile::update()
 
     // TODO debugging change tile colour depending on selection
     if(m_bMouseOver)
+    {
         shape.setFillColor(m_yellow_trans);
+        if(TheInputHandler::Instance()->isMouseKeyDown(sf::Mouse::Button::Left))
+            m_type = World::VOID;
+        if(TheInputHandler::Instance()->isMouseKeyDown(sf::Mouse::Button::Right))
+            m_type = Game::Instance()->getRandom(World::GRASS, World::WATER);
+    }
     //else
     //    shape.setFillColor(sf::Color::Blue);
 
     if(m_bTileSelected)
         shape.setFillColor(sf::Color::Red);
 
+    m_frame = m_type;
+
     GameObject::update();
 }
 
 void Tile::render()
 {
-    GameObject::render();
-    Game::Instance()->getRenderWindow()->draw(shape);
+    if(m_type != World::VOID)
+    {
+        GameObject::render();
+        Game::Instance()->getRenderWindow()->draw(shape);
+    }
+
 }
 
 void Tile::clean()

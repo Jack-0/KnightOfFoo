@@ -26,9 +26,16 @@ public:
 
     void selectTile(int i, int j);
 
+    enum TILE_TYPES{
+        VOID       = -1,
+        GRASS      = 0,
+        GRASS_DARK = 1,
+        WATER      = 2,
+    };
+
 private:
-    int m_world_w; // width of the world in tiles
-    int m_world_h; // height of the world in tiles
+    static const int m_world_w = 32; // width of the world in tiles
+    static const int m_world_h = 64; // height of the world in tiles
 
     ~World();
 
@@ -38,14 +45,20 @@ private:
     int m_bottom = 0;
     int m_top = 0;
 
-    enum TILE_TYPES{
-        WATER = 0,
-        SAND = 1,
-        GRASS = 2,
-        GRASS_DARK = 3
-    };
-
     std::map<int, std::map<int, Tile*>> m_tiles;
+
+
+    // cellular automata methods and variables for map generation
+    bool cells[m_world_h][m_world_w];
+    bool last_cells[m_world_h][m_world_h];
+
+    int m_chance_to_start_alive = 4; // 40%
+    int m_steps = 10;
+    int m_death_limit = 4;
+    int m_birth_limit = 4;
+
+    void generateStep();
+    int countNeighbours(int x, int y);
 
 };
 
