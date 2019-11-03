@@ -88,10 +88,13 @@ void Game::handleEvents()
     TheInputHandler::Instance()->update();
 }
 
+/**
+ * Camera is focused on the center of the players sprite
+ * @param p the player object
+ */
 void Game::focusOnPlayer(Player *p)
 {
-    // set pos
-    m_view.setCenter(p->getX(), p->getY());
+    m_view.setCenter(p->playerSpriteCenter());
 }
 
 void Game::updateCamera()

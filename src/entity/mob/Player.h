@@ -18,8 +18,8 @@ public:
     virtual void render();
     virtual void clean();
 
-    int getX() { return m_pos.x; }
-    int getY() { return m_pos.y; }
+    // return the center of the players sprite
+    sf::Vector2f playerSpriteCenter() { return sf::Vector2f(m_pos.x + m_width / 2, m_pos.y + m_height / 2); }
 
 private:
 
