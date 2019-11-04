@@ -34,7 +34,7 @@ public:
     };
 
 private:
-    static const int m_world_w = 32; // width of the world in tiles
+    static const int m_world_w = 16; // width of the world in tiles
     static const int m_world_h = 64; // height of the world in tiles
 
     ~World();
