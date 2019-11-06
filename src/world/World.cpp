@@ -97,7 +97,6 @@ void World::generate()
     for(int i = center_tile_x - r; i <= center_tile_x + r; i++) {
         for (int j = center_tile_y - r; j <= center_tile_y + r; j++) {
             cells[i][j] = false;
-            std::cout << "tile x=" << i << " y=" << j << " is on\n";
         }
     }
 
