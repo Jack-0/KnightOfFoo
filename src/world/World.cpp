@@ -6,7 +6,7 @@
 #include "../graphics/GraphicsManager.h"
 #include "../input/InputHandler.h"
 
-class Instance;
+// TODO fix code readability as i = is height in cells but is width in tiles... doesn't matter for now
 
 World::World()
 {

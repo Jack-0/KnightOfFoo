@@ -25,6 +25,15 @@ void Button::update()
         // left click inside button
         if(TheInputHandler::Instance()->isMouseKeyDown(sf::Mouse::Button::Left)) {
             m_frame = MOUSE_CLICK;
+
+            // add 100 ms delay, to ensure left click has been released TODO find a more elegant solution
+            sf::Clock clock;
+            sf::Time c_start = clock.getElapsedTime();
+            while(clock.getElapsedTime().asMilliseconds() < c_start.asMilliseconds() + 100 )
+            {
+            }
+
+            // call the related button press function
             m_callback();
         }
         else{
