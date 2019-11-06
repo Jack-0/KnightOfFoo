@@ -44,13 +44,10 @@ bool PlayState::onEnter()
     // add the player
     TheGfxManager::Instance()->addTexture("../res/player.png", "player_sheet");
     TheGfxManager::Instance()->addSprites("player_sheet","player_sprites",25,46,16);
-    int player_start_x = 0; // TODO problem here WE MUST UNDERSTAND THE RELATIONSHIP BETWEEN PLAYER, VIEW AND SCREEN
-    int player_start_y = 0; // TODO
-    m_player = new Player(new LoaderParams(sf::Vector2f(player_start_x,player_start_y),25,46,TheGfxManager::Instance()->getSprites("player_sprites")));
+    int player_start_x = m_world->getCenterTilePos().x + (m_world->TILE_W / 2) - (25 * 2);
+    int player_start_y = m_world->getCenterTilePos().y - (46 * 2);
+    m_player = new Player(new LoaderParams(sf::Vector2f(player_start_x, player_start_y),25,46,TheGfxManager::Instance()->getSprites("player_sprites")));
     m_gameObjects.push_back(m_player);
-
-
-
 
 
     /*

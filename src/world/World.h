@@ -15,8 +15,8 @@ public:
 
     World();
 
-    const int tile_w = 256; // pixel width of single tile
-    const int tile_h = 128; // pixel height of single tile
+    const int TILE_W = 256; // pixel width of single tile
+    const int TILE_H = 128; // pixel height of single tile
 
     void generate();
 
@@ -33,6 +33,8 @@ public:
         WATER      = 2,
     };
 
+    sf::Vector2i getCenterTilePos() { return m_center_tile_pos; }
+
 private:
     static const int m_world_w = 16; // width of the world in tiles
     static const int m_world_h = 64; // height of the world in tiles
@@ -44,6 +46,8 @@ private:
     int m_right = 0;
     int m_bottom = 0;
     int m_top = 0;
+
+    sf::Vector2i m_center_tile_pos;
 
     std::map<int, std::map<int, Tile*>> m_tiles;
 

@@ -99,24 +99,34 @@ void World::generate()
     {
         // if the height is an even number then the isometric tile has a x offset
         if(i % 2 != 0 )
-            x_offset = tile_w / 2;
+            x_offset = TILE_W / 2;
         else
             x_offset = 0;
 
         for(int j = 0; j < m_world_w; j++)
         {
             // set the correct tile position
-            tile_x_pos = ( j * tile_w) + x_offset;
-            tile_y_pos = i * tile_h / 2;
+            tile_x_pos = ( j * TILE_W) + x_offset;
+            tile_y_pos = i * TILE_H / 2;
 
-            if(cells[i][j]){
-                m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), tile_w, tile_h,
+            // center tile must be populated
+            if (j == m_world_w / 2 && i == m_world_h / 2) {
+                m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), TILE_W, TILE_H,
+                                                           TheGfxManager::Instance()->getSprites("tiles"), false,
+                                                           0), Game::Instance()->getRandom(GRASS, WATER));
+                m_tiles[i][j]->select();
+                //
+                m_center_tile_pos = sf::Vector2i(j * TILE_W, i * TILE_H / 2);
+            }
+            // generate all other tiles based on cellular automa results
+            else if(cells[i][j]){
+                m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), TILE_W, TILE_H,
                                                            TheGfxManager::Instance()->getSprites("tiles"), false,
                                                            0), VOID);
             }
             else{
                 // all other tiles are x
-                m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), tile_w, tile_h,
+                m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), TILE_W, TILE_H,
                                                            TheGfxManager::Instance()->getSprites("tiles"), false,
                                                            0), Game::Instance()->getRandom(GRASS, WATER));
             }
@@ -151,10 +161,10 @@ void World::render()
 void World::updateScreenBounds()
 {
     // calculate what tiles are on the screen
-    m_left   = Game::Instance()->getScreenLeft()   / tile_w;
-    m_right  = Game::Instance()->getScreenRight()  / tile_w;
-    m_bottom = Game::Instance()->getScreenBottom() / (tile_h / 2);
-    m_top    = Game::Instance()->getScreenTop()    / (tile_h / 2);
+    m_left   = Game::Instance()->getScreenLeft()   / TILE_W;
+    m_right  = Game::Instance()->getScreenRight()  / TILE_W;
+    m_bottom = Game::Instance()->getScreenBottom() / (TILE_H / 2);
+    m_top    = Game::Instance()->getScreenTop()    / (TILE_H / 2);
 
     // offset each bound by +/-1 to... this renders tiles that are half inside the screen bounds
     m_left--;
