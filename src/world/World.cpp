@@ -85,6 +85,20 @@ void World::generate()
             else
                 cells[i][j] = false;
 
+    /// center tiles must be occupied
+    m_center_tile_pos = sf::Vector2i( (m_world_w / 2) * TILE_W, (m_world_h / 2) * TILE_H / 2);
+    int center_tile_x = m_world_h / 2;
+    int center_tile_y = m_world_w / 2;
+    cells[center_tile_x][center_tile_y] = true;
+
+    int r = 1; // radius of center tiles
+    // set tiles around center to be alive
+    for(int i = center_tile_x - r; i > center_tile_x + r; i++) {
+        for (int j = center_tile_y - r; j > center_tile_y + r; j++) {
+            cells[i][j] = true;
+        }
+    }
+
     /// generate map using cellular automata
     for(int i=0; i < m_steps; i++)
         generateStep();
@@ -93,6 +107,8 @@ void World::generate()
     int x_offset   = 0; // due to the nature of isometric tiles even rows are offset
     int tile_x_pos = 0;
     int tile_y_pos = 0;
+
+
 
     // generates a grid of tiles m_world_h high and m_world_w wide
     for(int i = 0; i < m_world_h; i++)
@@ -109,29 +125,20 @@ void World::generate()
             tile_x_pos = ( j * TILE_W) + x_offset;
             tile_y_pos = i * TILE_H / 2;
 
-            // center tile must be populated
-            if (j == m_world_w / 2 && i == m_world_h / 2) {
-                m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), TILE_W, TILE_H,
-                                                           TheGfxManager::Instance()->getSprites("tiles"), false,
-                                                           0), Game::Instance()->getRandom(GRASS, WATER));
-                m_tiles[i][j]->select();
-                //
-                m_center_tile_pos = sf::Vector2i(j * TILE_W, i * TILE_H / 2);
-            }
             // generate all other tiles based on cellular automa results
-            else if(cells[i][j]){
+            if(cells[i][j]){
                 m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), TILE_W, TILE_H,
                                                            TheGfxManager::Instance()->getSprites("tiles"), false,
                                                            0), VOID);
             }
             else{
-                // all other tiles are x
                 m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), TILE_W, TILE_H,
                                                            TheGfxManager::Instance()->getSprites("tiles"), false,
                                                            0), Game::Instance()->getRandom(GRASS, WATER));
             }
         }
     }
+    m_tiles[m_world_h / 2][m_world_w / 2]->select();
 }
 
 void World::update()
