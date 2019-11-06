@@ -78,6 +78,7 @@ int World::countNeighbours(int x, int y)
 void World::generate()
 {
     /// init cells with a chance to start alive
+    // true = dead, false = alive
     for(int i = 0; i <= m_world_h; i++)
         for(int j = 0; j <= m_world_w; j++)
             if(Game::Instance()->getRandom(0,10) < m_chance_to_start_alive)
@@ -89,13 +90,14 @@ void World::generate()
     m_center_tile_pos = sf::Vector2i( (m_world_w / 2) * TILE_W, (m_world_h / 2) * TILE_H / 2);
     int center_tile_x = m_world_h / 2;
     int center_tile_y = m_world_w / 2;
-    cells[center_tile_x][center_tile_y] = true;
+    cells[center_tile_x][center_tile_y] = false;
 
-    int r = 1; // radius of center tiles
+    int r = 2; // radius of center tiles
     // set tiles around center to be alive
-    for(int i = center_tile_x - r; i > center_tile_x + r; i++) {
-        for (int j = center_tile_y - r; j > center_tile_y + r; j++) {
-            cells[i][j] = true;
+    for(int i = center_tile_x - r; i <= center_tile_x + r; i++) {
+        for (int j = center_tile_y - r; j <= center_tile_y + r; j++) {
+            cells[i][j] = false;
+            std::cout << "tile x=" << i << " y=" << j << " is on\n";
         }
     }
 
