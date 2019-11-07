@@ -19,8 +19,6 @@ Player::Player(const LoaderParams *pParams) : GameObject(pParams)
 
 void Player::handleInput()
 {
-    // TODO note player m_pos is not altered
-
     int speed = 10;
     m_state = STATIONARY;
 
@@ -33,36 +31,27 @@ void Player::handleInput()
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::W)){
         m_sprite_sheet_ref = 0; // 0 is the index of the walking up sprite
         m_state = UP;
-        //Game::Instance()->move(0,-1 * speed); // move the game camera... TODO ?should camera point to player pos?
         m_pos.y -= speed;
     }
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::S)){
         m_sprite_sheet_ref = 4; // 4 is the index of the walking down sprite
         m_state = DOWN;
-        //Game::Instance()->move(0,1 * speed);
         m_pos.y += speed;
     }
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::A)){
         m_sprite_sheet_ref = 8; // 8 is the index of the walking left sprite
         m_state = LEFT;
-        //Game::Instance()->move(-1 * speed,0);
         m_pos.x -= speed;
     }
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::D)){
         m_sprite_sheet_ref = 12; // 12 is the index of the walking right sprite
         m_state = RIGHT;
-        //Game::Instance()->move(1 * speed,0);
         m_pos.x += speed;
     }
 }
 
 void Player::update()
 {
-    // center the player on screen
-    //m_pos = Game::Instance()->getCenter();
-    //m_pos.x = m_pos.x - m_width / 2;
-    //m_pos.y = m_pos.y - m_height / 2;
-
     // change state dependent on input
     handleInput();
 
