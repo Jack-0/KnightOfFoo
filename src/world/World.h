@@ -25,6 +25,7 @@ public:
     void clean();
 
     void selectTile(int i, int j);
+    void updateEdgeTiles();
 
     enum TILE_TYPES{
         VOID       = -1,
@@ -34,6 +35,7 @@ public:
     };
 
     sf::Vector2i getCenterTilePos() { return m_center_tile_pos; }
+
 
 private:
     static const int m_world_w = 16; // width of the world in tiles
@@ -54,7 +56,9 @@ private:
 
     // cellular automata methods and variables for map generation
     bool cells[m_world_h][m_world_w];
-    bool last_cells[m_world_h][m_world_h];
+    bool last_cells[m_world_h][m_world_w];
+
+    bool edgeTiles[m_world_h][m_world_w];
 
     int m_chance_to_start_alive = 4; // 40%
     int m_steps = 10;

@@ -37,6 +37,7 @@ Tile::Tile(const LoaderParams *pParams, int tileType) : GameObject(pParams)
     shape.setPoint(3, pos_d);
     shape.setFillColor(sf::Color::Blue);
 
+    tileEdge = new GameObject(new LoaderParams(sf::Vector2f(m_pos.x, m_pos.y + 128 /2), 256,256, TheGfxManager::Instance()->getSprites("tile_edge"), false, 0));
 }
 
 void Tile::mouseIntersect()
@@ -80,9 +81,10 @@ bool Tile::pointIsRight(sf::Vector2f point1, sf::Vector2f point2, sf::Vector2f c
     return !pointIsLeft(point1, point2, check);
 }
 
-
 void Tile::update()
 {
+    if(edgeTile)
+        tileEdge->update();
 
     mouseIntersect();
 
@@ -110,6 +112,9 @@ void Tile::update()
 
 void Tile::render()
 {
+    if(edgeTile)
+        tileEdge->render();
+    
     if(m_type != World::VOID)
     {
         GameObject::render();

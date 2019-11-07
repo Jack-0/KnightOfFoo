@@ -11,9 +11,14 @@
 World::World()
 {
     // load texture and create sprites from it
-    TheGfxManager::Instance()->addTexture("../res/ground_tiles.png", "ground_tiles");    // load texture
+    TheGfxManager::Instance()->addTexture("../res/ground_tiles.png", "ground_tiles");    // load textures
     TheGfxManager::Instance()->addSprites("ground_tiles", "tiles", 256, 128, 4);         // create tile sprites
     //TheGfxManager::Instance()->addSprites("ground_tiles", "half_tiles", 256/2, 128, 4*2);     // create half tile sprites
+
+
+    // add floating rock stuff
+    TheGfxManager::Instance()->addTexture("../res/float_rock.png", "rock");    // load textures
+    TheGfxManager::Instance()->addSprites("rock", "tile_edge", 256, 256, 4);         // create tile sprites
 
     generate();
 }
@@ -140,6 +145,67 @@ void World::generate()
         }
     }
     m_tiles[m_world_h / 2][m_world_w / 2]->select();
+
+    updateEdgeTiles();
+}
+
+
+/**
+ * update edge tiles based on cells[][]
+ *
+ * Tiles can have edges currently we only focus on the bottom two edges of the isometric tile A and B as shown below
+ *
+ *    / \
+ *   A\ /B
+ *
+ * A even x position (i - in our loop) iso tile will have a different position for A and B in comparision to a non-even
+ * iso tile.
+ * For example:
+ *      with even tiles, A = [i+1][j-1] B = [i+1][j]
+ *      with odd tiles,  A = [i+i][j]   B = [i+1][j+1]
+ *
+ * this is due to even tiles being offset from odd to to create a lattice of isometric tiles
+ */
+void World::updateEdgeTiles()
+{
+    for(int i = 0; i < m_world_h; i++){
+        for(int j = 0; j < m_world_w; j++){
+
+            // start all as false
+            edgeTiles[i][j] = false;
+
+            // check if tiles are edge tiles by comparing them to their neighbours
+            if(i % 2 == 0)
+            {
+                // even tiles
+                // check bounds to prevent array index errors
+                if(i + 1 <= m_world_h && j - 1 >= 0)
+                {
+                    // if the selected tile is ground but the surrounding are empty we are indexed at an edge tile
+                    if(!cells[i][j] && (cells[i+1][j-1] || cells[i+1][j]) )
+                        edgeTiles[i][j] = true;
+                }
+                // check if the neighbours are out of bounds but the current tile is in bounds
+                else if(!cells[i][j] && (j <= 0 || i >= m_world_h) )
+                    edgeTiles[i][j] = true;
+            }
+            else
+            {
+                //odd tiles
+                // check bounds to prevent array index errors
+                if(i + 1 <= m_world_h && j + 1 <= m_world_w)
+                {
+                    // if the selected tile is ground but the surrounding are empty we are indexed at an edge tile
+                    if(!cells[i][j] && (cells[i+1][j] || cells[i+1][j]+1) )
+                        edgeTiles[i][j] = true;
+                }
+            }
+
+
+            if(edgeTiles[i][j])
+                m_tiles[i][j]->setEdge();
+        }
+    }
 }
 
 void World::update()
@@ -153,6 +219,7 @@ void World::update()
             if(m_tiles[i][j]->mouseOver())
                 Game::Instance()->debugMsg(std::string(" i="+std::to_string(i)+" j="+std::to_string(j)));
         }
+
 }
 
 void World::render()
