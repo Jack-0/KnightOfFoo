@@ -114,11 +114,12 @@ void Tile::render()
 {
     if(edgeTile)
         tileEdge->render();
-    
+
     if(m_type != World::VOID)
     {
         GameObject::render();
-        Game::Instance()->getRenderWindow()->draw(shape);
+        if(m_bTileSelected || m_bMouseOver)
+            Game::Instance()->getRenderWindow()->draw(shape);
     }
 
 }
