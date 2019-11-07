@@ -196,7 +196,7 @@ void World::updateEdgeTiles()
                 if(i + 1 <= m_world_h && j + 1 <= m_world_w)
                 {
                     // if the selected tile is ground but the surrounding are empty we are indexed at an edge tile
-                    if(!cells[i][j] && (cells[i+1][j] || cells[i+1][j]+1) )
+                    if(!cells[i][j] && (cells[i+1][j] || cells[i+1][j+1]) )
                         edgeTiles[i][j] = true;
                 }
             }
