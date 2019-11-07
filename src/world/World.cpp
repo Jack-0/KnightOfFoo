@@ -244,7 +244,7 @@ void World::updateScreenBounds()
     // offset each bound by +/-1 to... this renders tiles that are half inside the screen bounds
     m_left--;
     m_right++;
-    m_top--;
+    m_top -= 3; // 3 to ensure tile edge is rendered on screen (a tile edge is under a tile, hence rendering 2 extra tiles above screen bounds; to ensure tile edge is shown in-game)
     m_bottom++;
 
     // check that the tile bound is not invalid, due to scrolling the screen further than the tile map
