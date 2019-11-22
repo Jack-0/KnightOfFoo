@@ -49,6 +49,14 @@ bool PlayState::onEnter()
     m_player = new Player(new LoaderParams(sf::Vector2f(player_start_x, player_start_y),25,46,TheGfxManager::Instance()->getSprites("player_sprites")));
     m_gameObjects.push_back(m_player);
 
+    TheGfxManager::Instance()->addTexture("../res/tower.png", "tower_sheet");
+    TheGfxManager::Instance()->addSprites("tower_sheet","tower",222,219, 180);
+    GameObject* gameObject = new GameObject(
+            new LoaderParams(sf::Vector2f(player_start_x,player_start_y),222,219,TheGfxManager::Instance()->getSprites("tower"),true,0,20));
+    m_gameObjects.push_back(gameObject);
+    GameObject* gameObject2 = new GameObject(
+            new LoaderParams(sf::Vector2f(player_start_x+222,player_start_y),222,219,TheGfxManager::Instance()->getSprites("tower"),true,80,200));
+    m_gameObjects.push_back(gameObject2);
 
     /*
     std::vector<sf::Sprite> player_up = TheGfxManager::Instance()->getSprites("player_sprites",0,3);
