@@ -13,7 +13,7 @@
 #include "GameOverState.h"
 #include "../entity/Text.h"
 #include "../world/World.h"
-#include "../entity/mob/Player.h"
+#include "../entity/player/Player.h"
 
 #include <SFML/Graphics/CircleShape.hpp>
 
