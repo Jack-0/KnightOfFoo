@@ -7,6 +7,7 @@
 #include "../graphics/GraphicsManager.h"
 #include "../input/InputHandler.h"
 #include "../entity/Button.h"
+#include "../entity/mob/Enemy.h"
 
 const std::string PlayState::s_playID = "PLAY";
 
@@ -58,6 +59,9 @@ bool PlayState::onEnter()
             new LoaderParams(sf::Vector2f(player_start_x+222,player_start_y),222,219,TheGfxManager::Instance()->getSprites("tower"),true,80,200));
     m_gameObjects.push_back(gameObject2);
 
+    Enemy* e = new Enemy(new LoaderParams(sf::Vector2f(player_start_x, player_start_y),
+            25,46,TheGfxManager::Instance()->getSprites("player_sprites")));
+    m_gameObjects.push_back(e);
     /*
     std::vector<sf::Sprite> player_up = TheGfxManager::Instance()->getSprites("player_sprites",0,3);
     for(int i = 0; i < player_up.size(); i++)

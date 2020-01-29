@@ -2,7 +2,7 @@
 // Created by jack on 27/10/19.
 //
 
-#ifndef KNIGHT_OF_FOOl_PLAYER_H
+#ifndef KNIGHT_OF_FOO_PLAYER_H
 #define KNIGHT_OF_FOO_PLAYER_H
 
 
