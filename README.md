@@ -1,4 +1,4 @@
-# knight-of-foo
+# Knight Of Foo
 
 A simple game. Created to learn SFML, C++ and play/experiment with game programming patterns.
 The game is in a rudimentary state, the player can move, delete and create tiles. 
