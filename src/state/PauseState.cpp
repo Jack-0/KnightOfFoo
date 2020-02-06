@@ -25,6 +25,8 @@ void PauseState::update()
 {
     //m_resume_btn->setCentered( -(m_btn_w / 2), -((m_btn_h / 1.5)*2) );
     //m_menu_btn->setCentered( -(m_btn_w / 2), 0);
+    //m_menu_btn->scale();
+    //m_resume_btn->scale();
 
     for(int i = 0; i < m_gameObjects.size(); i++)
     {

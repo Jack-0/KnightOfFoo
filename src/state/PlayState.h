@@ -41,7 +41,7 @@ private:
     static const std::string s_playID;
 
     // the world, contains tile map and tile information
-    World* m_world;
+    //World* m_world;
     // pointer to player
     Player *m_player;
 

@@ -17,7 +17,7 @@ void PlayState::update()
     if(TheInputHandler::Instance()->isKeyDown(sf::Keyboard::Escape))
         Game::Instance()->getStateMachine()->pushState(new PauseState());
 
-    m_world->update();
+    World::Instance()->update();
 
     for(int i = 0; i < m_gameObjects.size(); i++)
         m_gameObjects[i]->update();
@@ -29,7 +29,7 @@ void PlayState::update()
 
 void PlayState::render()
 {
-   m_world->render();
+   World::Instance()->render();
 
    for(int i = 0; i < m_gameObjects.size(); i++)
         m_gameObjects[i]->render();
@@ -40,13 +40,13 @@ void PlayState::render()
 bool PlayState::onEnter()
 {
     // create a new world
-    m_world = new World();
+    //m_world = new World();
 
     // add the player
     TheGfxManager::Instance()->addTexture("../res/player.png", "player_sheet");
     TheGfxManager::Instance()->addSprites("player_sheet","player_sprites",25,46,16);
-    int player_start_x = m_world->getCenterTilePos().x + (m_world->TILE_W / 2) - (25 * 2);
-    int player_start_y = m_world->getCenterTilePos().y - (46 * 2);
+    int player_start_x = World::Instance()->getCenterTilePos().x + (World::Instance()->TILE_W / 2) - (25 * 2);
+    int player_start_y = World::Instance()->getCenterTilePos().y - (46 * 2);
     m_player = new Player(new LoaderParams(sf::Vector2f(player_start_x, player_start_y),25,46,TheGfxManager::Instance()->getSprites("player_sprites")));
     m_gameObjects.push_back(m_player);
 
@@ -94,7 +94,7 @@ bool PlayState::onExit()
     // remove all game objects from the vector
     m_gameObjects.clear();
 
-    m_world->clean();
+    World::Instance()->clean();
 
     std::cout << "Exiting play state\n";
     return true;
