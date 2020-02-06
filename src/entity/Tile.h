@@ -12,7 +12,7 @@
 class Tile : public GameObject
 {
 public:
-    Tile(const LoaderParams* pParams, int typeType);
+    Tile(const LoaderParams* pParams, int typeType, int i, int j);
 
     virtual void update();
     virtual void render();
@@ -49,6 +49,8 @@ private:
 
     int m_type = 0;
 
+    int i_ = 0;
+    int j_ = 0;
     // TODO remove
     sf::Color m_yellow_trans = sf::Color(255,255,0,100);
 };

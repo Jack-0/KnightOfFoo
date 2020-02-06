@@ -8,7 +8,7 @@
 #include "../Game.h"
 #include "../graphics/GraphicsManager.h"
 
-Tile::Tile(const LoaderParams *pParams, int tileType) : GameObject(pParams)
+Tile::Tile(const LoaderParams *pParams, int tileType, int i, int j) : GameObject(pParams)
 {
     m_type = tileType;
 
@@ -23,6 +23,9 @@ Tile::Tile(const LoaderParams *pParams, int tileType) : GameObject(pParams)
      *      \   /
      *       [C]
      */
+
+    i_ = i;
+    j_ = j;
 
     pos_a = sf::Vector2f(x + (tile_width / 2), y                    ); // [A]
     pos_b = sf::Vector2f(x                   , y + (tile_height / 2) ); // [B]
@@ -95,9 +98,15 @@ void Tile::update()
     {
         shape.setFillColor(m_yellow_trans);
         if(TheInputHandler::Instance()->isMouseKeyDown(sf::Mouse::Button::Left))
+        {
             m_type = World::VOID;
+            World::Instance()->updateNeighbours(i_, j_);
+        }
+
         if(TheInputHandler::Instance()->isMouseKeyDown(sf::Mouse::Button::Right))
-            m_type = Game::Instance()->getRandom(World::GRASS, World::WATER);
+        {
+            m_type = Game::Instance()->getRandom(World::GRASS, World::WATER); // all tiles 0-2
+        }
     }
     //else
     //    shape.setFillColor(sf::Color::Blue);
@@ -112,7 +121,7 @@ void Tile::update()
 
 void Tile::render()
 {
-    if(edgeTile)
+    if(edgeTile && m_type != World::VOID)
         tileEdge->render();
 
     if(m_type != World::VOID)
