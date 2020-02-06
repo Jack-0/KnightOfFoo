@@ -13,7 +13,15 @@ class World
 {
 public:
 
-    World();
+
+    static World* Instance()
+    {
+        if(s_pInstance == 0)
+        {
+            s_pInstance = new World();
+            return s_pInstance;
+        }
+    }
 
     const int TILE_W = 256; // pixel width of single tile
     const int TILE_H = 128; // pixel height of single tile
@@ -26,6 +34,7 @@ public:
 
     void selectTile(int i, int j);
     void updateEdgeTiles();
+    void updateNeighbours(int i, int j);
 
     enum TILE_TYPES{
         VOID       = -1,
@@ -42,6 +51,9 @@ private:
     static const int m_world_h = 64; // height of the world in tiles
 
     ~World();
+    World();
+
+    static World* s_pInstance;
 
     void updateScreenBounds();
     int m_left = 0;

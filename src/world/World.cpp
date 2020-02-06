@@ -8,6 +8,9 @@
 
 // TODO fix code readability as i = is height in cells but is width in tiles... doesn't matter for now
 
+World* World::s_pInstance = 0; // singleton
+
+
 World::World()
 {
     // load texture and create sprites from it
@@ -135,18 +138,55 @@ void World::generate()
             if(cells[i][j]){
                 m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), TILE_W, TILE_H,
                                                            TheGfxManager::Instance()->getSprites("tiles"), false,
-                                                           0), VOID);
+                                                           0), VOID, i, j);
             }
             else{
                 m_tiles[i][j] = new Tile( new LoaderParams(sf::Vector2f(tile_x_pos, tile_y_pos), TILE_W, TILE_H,
                                                            TheGfxManager::Instance()->getSprites("tiles"), false,
-                                                           0), Game::Instance()->getRandom(GRASS, WATER));
+                                                           0), Game::Instance()->getRandom(GRASS, WATER), i, j);
             }
         }
     }
     m_tiles[m_world_h / 2][m_world_w / 2]->select();
 
     updateEdgeTiles();
+}
+
+/**
+ * update edge tiles based on current position
+ *
+ * Tiles can have edges currently we only focus on the bottom two edges of the isometric tile A and B as shown below
+ *
+ *    A / \ B
+ *
+ * A even x position (i - in our loop) iso tile will have a different position for A and B in comparision to a non-even
+ * iso tile.
+ * For example:
+ *      with even tiles, A = [i-1][j-1] B = [i-1][j]
+ *      with odd tiles,  A = [i-i][j]   B = [i-1][j+1]
+ *
+ * this is due to even tiles being offset from odd to to create a lattice of isometric tiles
+ */
+void World::updateNeighbours(int i, int j)
+{
+    if(i > 0) {
+        /// valid tile
+        if (i % 2 == 0) {
+            /// even tile
+            // set A to edge
+            m_tiles[i-1][j-1]->setEdge();
+            // set B to edge
+            m_tiles[i-1][j]->setEdge();
+
+        } else {
+            /// odd tile
+            // set A to edge
+            m_tiles[i-1][j]->setEdge();
+            // set B to edge
+            m_tiles[i-1][j+1]->setEdge();
+
+        }
+    }
 }
 
 
